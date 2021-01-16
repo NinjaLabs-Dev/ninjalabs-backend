@@ -34,6 +34,10 @@ class DocumentController extends Controller
         }
     }
 
+    public function redirectToNew() {
+        return "hi";
+    }
+
     public function store(Request $request) {
         if(!($request->header('token') || $request->header('id'))) {
             return response()->json([
