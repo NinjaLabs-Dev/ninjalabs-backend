@@ -19,9 +19,6 @@ use App\Http\Controllers\Pages\LoginController,
 */
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/temp', function(){
-    return view('pages.temp');
-})->name('temp');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
@@ -34,4 +31,8 @@ Route::prefix('image')->group(function() {
 
 Route::domain('cdn.ninjalabs.dev')->group(function () {
     Route::get('/{slug}', [DocumentController::class, 'index'])->name('image');
+});
+
+Route::domain('ninjalabs.dev')->group(function () {
+    Route::get('/i/{slug}', [DocumentController::class, 'redirectToNew'])->name('image.deprecated');
 });

@@ -36,7 +36,11 @@ class DashboardController extends Controller
         });
 
 
-        return view('pages.dashboard.index')->with('files', $files)->with('storage', $diskUseage)->with('images', Image::paginate(10))->with('url', null);
+        return view('pages.dashboard.index')->with('files', $files)->with('storage', $diskUseage)->with('images', Image::paginate(50))->with('url', null);
+    }
+
+    public function redirectToNew($slug) {
+        return Redirect::route('image', $slug);
     }
 
 
