@@ -45,7 +45,7 @@ class DashboardController extends Controller
     }
 
     public function redirectToNew($slug) {
-        return Redirect::route('image', $slug);
+        return Redirect::away(route('image', $slug, true));
     }
 
 
