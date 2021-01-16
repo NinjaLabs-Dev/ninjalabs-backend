@@ -44,10 +44,6 @@ class DashboardController extends Controller
             ->with('file_count', $files->count());
     }
 
-    public function redirectToNew($slug) {
-        return Redirect::away(route('image', $slug, true));
-    }
-
 
     private function formatBytes($bytes, $precision = 2) {
         $units = array('B', 'KB', 'MB', 'GB', 'TB');

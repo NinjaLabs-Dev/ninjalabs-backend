@@ -6,6 +6,7 @@ use App\Models\ApiToken;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image as ImageManager;
@@ -167,4 +168,8 @@ class DocumentController extends Controller
 //
 //        return env('APP_URL') . "/" . $name;
 //    }
+
+    public function redirectToNew($slug) {
+        return Redirect::away(route('image', $slug, true));
+    }
 }
