@@ -20,6 +20,6 @@ use \App\Http\Controllers\DocumentController,
 */
 Route::put('/upload', [DocumentController::class, 'store'])->name('upload.file');
 
-Route::get('/images', [ImageController::class, 'getData'])->name('images');
+// Route::get('/images', [ImageController::class, 'getData'])->name('images');
 
 Route::fallback([APIFallback::class, 'index']);
