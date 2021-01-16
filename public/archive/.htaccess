@@ -1,0 +1,5 @@
+Options +FollowSymLinks
+RewriteEngine on
+RewriteBase /
+RewriteCond %{HTTP_HOST} !i\.ninjalabs.co.uk$ [NC]
+RewriteEngine ^(.*)$ http://cdn.ninjalabs.dev/$1 [L,R=302]
