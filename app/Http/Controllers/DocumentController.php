@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Cache;
 class DocumentController extends Controller
 {
     public function index($slug) {
+        $slug = explode(".", $slug);
+        $slug = $slug[0];
         $img = Image::where('slug', $slug)->first();
 
         if(!is_null($img)) {
@@ -168,8 +170,4 @@ class DocumentController extends Controller
 //
 //        return env('APP_URL') . "/" . $name;
 //    }
-
-    public function redirectToNew($slug) {
-        return Redirect::to(env('APP_URL') . '/' . $slug);
-    }
 }
