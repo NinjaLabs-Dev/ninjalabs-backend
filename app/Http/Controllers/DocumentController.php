@@ -170,6 +170,6 @@ class DocumentController extends Controller
 //    }
 
     public function redirectToNew($slug) {
-        return Redirect::away(route('image', $slug, true));
+        return Redirect::to(env('APP_URL') . '/' . $slug);
     }
 }
