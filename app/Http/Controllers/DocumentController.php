@@ -34,8 +34,10 @@ class DocumentController extends Controller
         }
     }
 
-    public function redirectToNew() {
-        return "hi";
+    public function redirectToNew($slug) {
+        $slug = explode(".", $slug);
+        $slug = $slug[0];
+        return $slug;
     }
 
     public function store(Request $request) {
