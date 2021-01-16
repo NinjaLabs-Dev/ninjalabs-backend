@@ -34,5 +34,5 @@ Route::domain('cdn.ninjalabs.dev')->group(function () {
 });
 
 Route::domain('i.ninjalabs.dev')->group(function () {
-    Route::get('/{slug}', [DocumentController::class, 'redirectToNew'])->name('image.deprecated');
+    Route::get('/{slug}', [DashboardController::class, 'redirectToNew'])->name('image.deprecated');
 });
