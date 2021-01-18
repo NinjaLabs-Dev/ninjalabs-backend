@@ -3,8 +3,11 @@
         <h3>NinjaLabs Development</h3>
     </div>
     <div class="items flex justify-content-end align-items-center mx-4">
-        <a href="{{ route('dashboard') }}" class="home px-2 py-2 rounded bg-gray-300 dark:bg-gray-700 dark:text-white hover:text-white hover:no-underline hover:bg-gray-600 transition">
+        <a href="{{ route('dashboard') }}" class="{{ Request::route()->getName() === 'dashboard' ? 'dark:bg-gray-600' : 'dark:bg-gray-700' }} home px-2 py-2 mx-2 rounded bg-gray-300 dark:text-white  hover:text-white hover:no-underline hover:bg-gray-600 transition">
             Home
+        </a>
+        <a href="{{ route('interest.overview') }}" class="{{ Request::route()->getName() === 'interest.overview' ? 'dark:bg-gray-600' : 'dark:bg-gray-700' }} home px-2 py-2 mx-2 rounded bg-gray-300 dark:bg-gray-700 dark:text-white hover:text-white hover:no-underline hover:bg-gray-600 transition">
+            Interests
         </a>
     </div>
 </div>

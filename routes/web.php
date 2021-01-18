@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Pages\LoginController,
-    \App\Http\Controllers\Pages\DashboardController,
-    App\Http\Controllers\DocumentController
+    App\Http\Controllers\Pages\DashboardController,
+    App\Http\Controllers\DocumentController,
+    App\Http\Controllers\Pages\InterestController
     ;
 
 /*
@@ -19,6 +20,8 @@ use App\Http\Controllers\Pages\LoginController,
 */
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/interests', [InterestController::class, 'index'])->name('interest.overview');
+Route::delete('/interests/{id}', [InterestController::class, 'delete'])->name('interest.delete');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
