@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\DocumentController,
     App\Http\Controllers\APIFallback,
     App\Http\Controllers\Pages\DashboardController,
-    App\Http\Controllers\ImageController
+    App\Http\Controllers\ImageController,
+    App\Http\Controllers\InterestController
     ;
 
 /*
@@ -19,6 +20,7 @@ use \App\Http\Controllers\DocumentController,
 |
 */
 Route::put('/upload', [DocumentController::class, 'store'])->name('upload.file');
+Route::put('/api/interest', [InterestController::class, 'store'])->name('upload.interest');
 
 // Route::get('/images', [ImageController::class, 'getData'])->name('images');
 
