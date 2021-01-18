@@ -11,11 +11,8 @@ class InterestController extends Controller
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'email' => 'required|email',
-            'extra_storage' => 'required|boolean'
+            'email' => 'required|email'
         ]);
-
-        return $request->all();
 
         if($validator->errors()) {
             return response()->json($validator->errors()->toArray(), 500);
