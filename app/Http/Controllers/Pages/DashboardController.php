@@ -26,19 +26,19 @@ class DashboardController extends Controller
 
         $files = Image::all();
 
-        $diskUseage = Cache::remember('disk-space', 3600, function() {
-            $space = 0;
-            foreach (Storage::allFiles() as $f) {
-                $space += Storage::size($f);
-            }
-
-            return self::formatBytes($space);
-        });
+//        $diskUseage = Cache::remember('disk-space', 3600, function() {
+//            $space = 0;
+//            foreach (Storage::all() as $f) {
+//                $space += Storage::size($f);
+//            }
+//
+//            return self::formatBytes($space);
+//        });
 
 
         return view('pages.dashboard.index')
             ->with('files', $files)
-            ->with('storage', $diskUseage)
+//            ->with('storage', $diskUseage)
             ->with('images', Image::paginate(50))
             ->with('url', null)
             ->with('file_count', $files->count());
