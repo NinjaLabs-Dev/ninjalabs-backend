@@ -12,7 +12,7 @@ class InterestController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'email' => 'required|email',
-            'extra_storage' => 'boolean'
+            'extra_storage' => 'required'
         ]);
 
         if($validator->errors()) {
