@@ -15,6 +15,8 @@ class InterestController extends Controller
             'extra_storage' => 'required|boolean'
         ]);
 
+        return $request->all();
+
         if($validator->errors()) {
             return response()->json($validator->errors()->toArray(), 500);
         }
