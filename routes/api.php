@@ -20,7 +20,7 @@ use \App\Http\Controllers\DocumentController,
 |
 */
 Route::put('/upload', [DocumentController::class, 'store'])->name('upload.file');
-Route::put('/interest', [InterestController::class, 'store'])->name('upload.interest');
+Route::post('/interest', [InterestController::class, 'store'])->name('upload.interest');
 
 // Route::get('/images', [ImageController::class, 'getData'])->name('images');
 
