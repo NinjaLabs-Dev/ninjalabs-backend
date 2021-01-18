@@ -6,7 +6,8 @@
 @section('content')
     <div class="row content w-100 min-h-100 flex justify-content-center align-items-center">
         <div class="col-lg-8 storage-inf links-container rounded bg-gray-800 px-4 py-4 my-4 text-white flex align-items-center justify-content-centero">
-            {{ $file_count }} images totaling {{ $storage }}
+            {{ $file_count }} images
+{{--            totaling {{ $storage }}--}}
         </div>
         @if(old($url))
             <div class="col-lg-8">
