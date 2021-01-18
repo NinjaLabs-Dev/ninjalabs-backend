@@ -16,7 +16,7 @@
                             <div class="details flex flex-col justify-content-center ml-4">
                                 <span>{{ $submission->name }}</span>
                                 <div class="overflow-ellipsis overflow-hidden max-h-10">
-                                    {{ $submission->email }}
+                                    {{ $submission->email }}{{ $submission->extra_storage ? ', 8GB' : ''}}
                                 </div>
                             </div>
                         </div>
