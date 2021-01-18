@@ -14,10 +14,8 @@ class InterestController extends Controller
             'email' => 'required|email'
         ]);
 
-        return $validator->errors();
-
-        if($validator->errors()) {
-            return response()->json($validator->errors()->toArray(), 500);
+        if($validator->fails()) {
+            return response()->json($validator->messages(), 200);
         }
 
         $entry = new Interest();
