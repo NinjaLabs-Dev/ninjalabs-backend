@@ -22,7 +22,7 @@
                         </div>
 
                         <div class="actions mx-2">
-                            <span class="date-time opacity-50">{{ $submission->created_at }}</span>
+                            <span class="date-time opacity-50 mr-2">{{ $submission->created_at }}</span>
                             <a href="{{ route('interest.delete', ['id' => $submission->id]) }}">
                                 <button class="uppercase px-2 py-2 h-75 text-sm bg-red-500 text-white shadow-sm hover:shadow-lg transition rounded">
                                     <svg width="16" height="16" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" style="transform: rotate(360deg);"><path d="M12 12h2v12h-2z" fill="currentColor"></path><path d="M18 12h2v12h-2z" fill="currentColor"></path><path d="M4 6v2h2v20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8h2V6zm4 22V8h16v20z" fill="currentColor"></path><path d="M12 2h8v2h-8z" fill="currentColor"></path></svg>
