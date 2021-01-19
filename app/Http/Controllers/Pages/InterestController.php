@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pages;
 use App\Http\Controllers\Controller;
 use App\Models\Interest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class InterestController extends Controller
 {
@@ -18,6 +19,8 @@ class InterestController extends Controller
     public function delete($id) {
         $interest = Interest::findOrFail($id);
 
-        return $interest->delete();
+        $interest->delete();
+
+        return Redirect::back();
     }
 }
