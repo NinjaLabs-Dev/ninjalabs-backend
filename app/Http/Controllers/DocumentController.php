@@ -39,59 +39,59 @@ class DocumentController extends Controller
         return $slug;
     }
 
-    public function store(Request $request) {
-        if(!($request->header('token') || $request->header('id'))) {
-            return response()->json([
-                'status' => 403,
-                'message' => 'Authentication Error'
-            ]);
-        } else {
-            $client = ApiToken::where('id',  $request->header('id'))->where('token',  $request->header('token'))->first();
-
-            if(is_null($client)) {
-                return response()->json([
-                    'status' => 403,
-                    'message' => 'Authentication Error'
-                ]);
-            }
-        }
-
-        $validator = Validator::make($request->all(), [
-            'image' => 'required'
-        ]);
-
-        if($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $validator->errors()->toArray()
-            ], 500);
-        }
-
-        $name = Str::random(7);
-        $rawimg = ImageManager::make($request->file('image'));
-        $imgType = $rawimg->mime();
-        $mimes = new MimeTypes;
-        $img = $rawimg->encode($mimes->getExtension($imgType), 75);
-
-        $folders = Storage::directories();
-        if(!in_array('images', $folders)) {
-            Storage::makeDirectory('images');
-        }
-
-        $dir = 'images/' . $name . '.' . $mimes->getExtension($imgType);
-
-        $res = Storage::put($dir, $img, 'public');
-        $url = Storage::url($dir);
-
-        $image = new Image();
-        $image->slug = $name;
-        $image->url = $url;
-        $image->dir = $dir;
-        $image->type = $imgType;
-        $image->save();
-
-        return env('APP_URL') . "/" . $name;
-    }
+//    public function store(Request $request) {
+//        if(!($request->header('token') || $request->header('id'))) {
+//            return response()->json([
+//                'status' => 403,
+//                'message' => 'Authentication Error'
+//            ]);
+//        } else {
+//            $client = ApiToken::where('id',  $request->header('id'))->where('token',  $request->header('token'))->first();
+//
+//            if(is_null($client)) {
+//                return response()->json([
+//                    'status' => 403,
+//                    'message' => 'Authentication Error'
+//                ]);
+//            }
+//        }
+//
+//        $validator = Validator::make($request->all(), [
+//            'image' => 'required'
+//        ]);
+//
+//        if($validator->fails()) {
+//            return response()->json([
+//                'status' => 'error',
+//                'message' => $validator->errors()->toArray()
+//            ], 500);
+//        }
+//
+//        $name = Str::random(7);
+//        $rawimg = ImageManager::make($request->file('image'));
+//        $imgType = $rawimg->mime();
+//        $mimes = new MimeTypes;
+//        $img = $rawimg->encode($mimes->getExtension($imgType), 75);
+//
+//        $folders = Storage::directories();
+//        if(!in_array('images', $folders)) {
+//            Storage::makeDirectory('images');
+//        }
+//
+//        $dir = 'images/' . $name . '.' . $mimes->getExtension($imgType);
+//
+//        $res = Storage::put($dir, $img, 'public');
+//        $url = Storage::url($dir);
+//
+//        $image = new Image();
+//        $image->slug = $name;
+//        $image->url = $url;
+//        $image->dir = $dir;
+//        $image->type = $imgType;
+//        $image->save();
+//
+//        return env('APP_URL') . "/" . $name;
+//    }
 
     public function store(Request $request) {
 //        if(!($request->header('token') || $request->header('id'))) {
