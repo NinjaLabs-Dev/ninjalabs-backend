@@ -13,6 +13,8 @@ use Intervention\Image\Facades\Image as ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Mimey\MimeTypes;
 use Illuminate\Support\Facades\Cache;
+use GuzzleHttp\Psr7\Stream;
+use GuzzleHttp\Psr7\CachingStream;
 
 class DocumentController extends Controller
 {
@@ -127,7 +129,7 @@ class DocumentController extends Controller
 
             $dir = 'images/' . $name . '.' . $file->getClientOriginalExtension();
 
-            $res = Storage::putFileAs('images', $file,$name . '.' . $file->getClientOriginalExtension(), 'public');
+            $res = Storage::putFileAs('images', new File($file),$name . '.' . $file->getClientOriginalExtension(), 'public');
             $url = Storage::url($dir);
 
             $image = new Image();
