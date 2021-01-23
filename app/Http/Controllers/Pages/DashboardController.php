@@ -44,6 +44,10 @@ class DashboardController extends Controller
             ->with('file_count', $files->count());
     }
 
+    public function temp() {
+        return view('pages.temp');
+    }
+
 
     private function formatBytes($bytes, $precision = 2) {
         $units = array('B', 'KB', 'MB', 'GB', 'TB');
