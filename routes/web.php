@@ -23,6 +23,8 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/interests', [InterestController::class, 'index'])->name('interest.overview');
 Route::get('/interests/{id}', [InterestController::class, 'delete'])->name('interest.delete');
 
+Route::get('/temp', [\App\Http\Controllers\ImageController::class, 'store']);
+
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 
