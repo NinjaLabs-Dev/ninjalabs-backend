@@ -120,6 +120,8 @@ class DocumentController extends Controller
             $label = explode('.', $name);
             $name = $label[0];
 
+            return $file;
+
             $img = $file;
 
             $folders = Storage::directories();
