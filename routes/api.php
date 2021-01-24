@@ -19,7 +19,7 @@ use \App\Http\Controllers\DocumentController,
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::put('/upload', [DocumentController::class, 'store'])->name('upload.file');
+Route::post('/upload', [DocumentController::class, 'store'])->name('upload.file');
 Route::post('/interest', [InterestController::class, 'store'])->name('upload.interest');
 
 // Route::get('/images', [ImageController::class, 'getData'])->name('images');
