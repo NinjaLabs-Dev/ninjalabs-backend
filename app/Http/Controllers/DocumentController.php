@@ -48,6 +48,7 @@ class DocumentController extends Controller
                 'message' => 'Authentication Error - Missing parameters'
             ]);
         } else {
+            return "b";
             $client = ApiToken::where('id',  $request->header('id'))->where('token',  $request->header('token'))->first();
 
             if(is_null($client)) {
