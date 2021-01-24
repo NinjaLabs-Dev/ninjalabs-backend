@@ -45,15 +45,16 @@ class DocumentController extends Controller
         if(!($request->header('token') || $request->header('id'))) {
             return response()->json([
                 'status' => 403,
-                'message' => 'Authentication Error'
+                'message' => 'Authentication Error - Missing parameters'
             ]);
         } else {
+            return "bb";
             $client = ApiToken::where('id',  $request->header('id'))->where('token',  $request->header('token'))->first();
 
             if(is_null($client)) {
                 return response()->json([
                     'status' => 403,
-                    'message' => 'Authentication Error'
+                    'message' => 'Authentication Error - Invalid credentials'
                 ]);
             }
         }
