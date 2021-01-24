@@ -73,6 +73,7 @@ class DocumentController extends Controller
         $imgType = $img->mime();
         $mimes = new MimeTypes;
 
+        return "a";
         $folders = Storage::directories();
         if(!in_array('images', $folders)) {
             Storage::makeDirectory('images');
