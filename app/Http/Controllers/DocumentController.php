@@ -42,6 +42,7 @@ class DocumentController extends Controller
     }
 
     public function store(Request $request) {
+        return "a";
         if(!($request->header('token') || $request->header('id'))) {
             return response()->json([
                 'status' => 403,
