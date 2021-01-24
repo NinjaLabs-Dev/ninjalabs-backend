@@ -57,8 +57,6 @@ class DocumentController extends Controller
             }
         }
 
-        return "n";
-
         $validator = Validator::make($request->all(), [
             'image' => 'required'
         ]);
@@ -69,6 +67,8 @@ class DocumentController extends Controller
                 'message' => $validator->errors()->toArray()
             ], 500);
         }
+
+        return "a";
 
         $name = Str::random(7);
         $rawimg = ImageManager::make($request->file('image'));
