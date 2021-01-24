@@ -75,8 +75,9 @@ class DocumentController extends Controller
         $mimes = new MimeTypes;
         $img = $rawimg->encode($mimes->getExtension($imgType), 75);
 
+        return "b1";
+
         $folders = Storage::directories();
-        return $folders;
         if(!in_array('images', $folders)) {
             Storage::makeDirectory('images');
         }
