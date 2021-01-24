@@ -69,12 +69,9 @@ class DocumentController extends Controller
         }
 
         $name = Str::random(7);
-        $rawimg = ImageManager::make($request->file('image'));
-        $imgType = $rawimg->mime();
+        $img = ImageManager::make($request->file('image'));
+        $imgType = $img->mime();
         $mimes = new MimeTypes;
-        $img = $rawimg->encode($mimes->getExtension($imgType), 75);
-
-        return "b1";
 
         $folders = Storage::directories();
         if(!in_array('images', $folders)) {
