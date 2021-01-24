@@ -69,8 +69,8 @@ class DocumentController extends Controller
         }
 
         $name = Str::random(7);
-        return "b";
         $img = ImageManager::make($request->file('image'));
+        return "b";
         $imgType = $img->mime();
         $mimes = new MimeTypes;
 
