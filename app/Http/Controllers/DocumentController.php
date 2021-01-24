@@ -45,14 +45,15 @@ class DocumentController extends Controller
         if(!($request->header('token') || $request->header('id'))) {
             return response()->json([
                 'status' => 403,
-                'message' => 'Authentication Error - Missing parameters'
+                'message' => 'Authentication Error'
             ]);
         } else {
             $client = ApiToken::where('id',  $request->header('id'))->where('token',  $request->header('token'))->first();
+
             if(is_null($client)) {
                 return response()->json([
                     'status' => 403,
-                    'message' => 'Authentication Error - Invalid credentials'
+                    'message' => 'Authentication Error'
                 ]);
             }
         }
@@ -68,13 +69,12 @@ class DocumentController extends Controller
             ], 500);
         }
 
-        $name = Str::random(7);
-        $img = ImageManager::make($request->file('image'));
-        return "b";
-        $imgType = $img->mime();
+        $name = Str::random(5);
+        $rawimg = ImageManager::make($request->file('image'));
+        $imgType = $rawimg->mime();
         $mimes = new MimeTypes;
+        $img = $rawimg->encode($mimes->getExtension($imgType), 75);
 
-        return "a";
         $folders = Storage::directories();
         if(!in_array('images', $folders)) {
             Storage::makeDirectory('images');
@@ -94,90 +94,4 @@ class DocumentController extends Controller
 
         return env('APP_URL') . "/" . $name;
     }
-
-//    public function store(Request $request) {
-////        if(!($request->header('token') || $request->header('id'))) {
-////            return response()->json([
-////                'status' => 403,
-////                'message' => 'Authentication Error'
-////            ]);
-////        } else {
-////            $client = ApiToken::where('id',  $request->header('id'))->where('token',  $request->header('token'))->first();
-////
-////            if(is_null($client)) {
-////                return response()->json([
-////                    'status' => 403,
-////                    'message' => 'Authentication Error'
-////                ]);
-////            }
-////        }
-//
-//        $t = [];
-//
-//        foreach($request->file('images') as $file) {
-//            $name = $file->getClientOriginalName();
-//
-//            $label = explode('.', $name);
-//            $name = $label[0];
-//
-//            return $file;
-//
-//            $img = $file;
-//
-//            $folders = Storage::directories();
-//            if(!in_array('images', $folders)) {
-//                Storage::makeDirectory('images');
-//            }
-//
-//            $dir = 'images/' . $name . '.' . $file->getClientOriginalExtension();
-//
-//            $res = Storage::putFileAs('images', new File($file),$name . '.' . $file->getClientOriginalExtension(), 'public');
-//            $url = Storage::url($dir);
-//
-//            $image = new Image();
-//            $image->slug = $name;
-//            $image->url = $url;
-//            $image->dir = $dir;
-//            $image->type = $img->getClientMimeType();
-//            $image->save();
-//        }
-//
-//        return "Done";
-//
-//        $validator = Validator::make($request->all(), [
-//            'image' => 'required'
-//        ]);
-//
-//        if($validator->fails()) {
-//            return response()->json([
-//                'status' => 'error',
-//                'message' => $validator->errors()->toArray()
-//            ], 500);
-//        }
-//
-//        $name = Str::random(5);
-//        $rawimg = ImageManager::make($request->file('image'));
-//        $imgType = $rawimg->mime();
-//        $mimes = new MimeTypes;
-//        $img = $rawimg->encode($mimes->getExtension($imgType), 75);
-//
-//        $folders = Storage::directories();
-//        if(!in_array('images', $folders)) {
-//            Storage::makeDirectory('images');
-//        }
-//
-//        $dir = 'images/' . $name . '.' . $mimes->getExtension($imgType);
-//
-//        $res = Storage::put($dir, $img, 'public');
-//        $url = Storage::url($dir);
-//
-//        $image = new Image();
-//        $image->slug = $name;
-//        $image->url = $url;
-//        $image->dir = $dir;
-//        $image->type = $imgType;
-//        $image->save();
-//
-//        return env('APP_URL') . "/" . $name;
-//    }
 }
