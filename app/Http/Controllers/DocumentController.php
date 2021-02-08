@@ -38,7 +38,6 @@ class DocumentController extends Controller
     public function redirectToNew($slug) {
         $slug = explode(".", $slug);
         $slug = $slug[0];
-        //return Image::where('slug', $slug)->get()->toArray();
         return Redirect::to('http://cdn.ninjalabs.dev/' . $slug);
     }
 
@@ -69,6 +68,8 @@ class DocumentController extends Controller
                 'message' => $validator->errors()->toArray()
             ], 500);
         }
+
+        return "yes";
 
         $name = Str::random(5);
         $rawimg = ImageManager::make($request->file('image'));
