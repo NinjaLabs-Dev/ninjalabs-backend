@@ -38,7 +38,7 @@ class DocumentController extends Controller
     public function redirectToNew($slug) {
         $slug = explode(".", $slug);
         $slug = $slug[0];
-        return $slug;
+        return DB::where('slug', $slug)->get()->toArray();
     }
 
     public function store(Request $request) {
