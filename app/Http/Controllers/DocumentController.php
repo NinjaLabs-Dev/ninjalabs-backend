@@ -70,8 +70,8 @@ class DocumentController extends Controller
         }
 
         $name = Str::random(5);
-        $rawimg = ImageManager::make($request->file('image'));
         return $request->file('image');
+        $rawimg = ImageManager::make($request->file('image'));
         $imgType = $rawimg->mime();
         $mimes = new MimeTypes;
         $img = $rawimg->encode($mimes->getExtension($imgType), 75);
