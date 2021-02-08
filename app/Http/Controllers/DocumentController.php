@@ -39,7 +39,7 @@ class DocumentController extends Controller
         $slug = explode(".", $slug);
         $slug = $slug[0];
         //return Image::where('slug', $slug)->get()->toArray();
-        return Redirect::to('http://cdn.ninjalabs.dev');
+        return Redirect::to('http://cdn.ninjalabs.dev/' . $slug);
     }
 
     public function store(Request $request) {
