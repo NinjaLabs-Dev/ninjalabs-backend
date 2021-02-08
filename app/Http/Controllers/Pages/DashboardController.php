@@ -39,7 +39,7 @@ class DashboardController extends Controller
         return view('pages.dashboard.index')
             ->with('files', $files)
 //            ->with('storage', $diskUseage)
-            ->with('images', Image::paginate(50))
+            ->with('images', Image::orderBy('created_at', 'desc')->paginate(50))
             ->with('url', null)
             ->with('file_count', $files->count());
     }
