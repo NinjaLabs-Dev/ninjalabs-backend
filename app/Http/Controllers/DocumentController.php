@@ -92,6 +92,6 @@ class DocumentController extends Controller
         $image->type = $imgType;
         $image->save();
 
-        return env('APP_URL') . "/" . $name;
+        return env('CDN_URL') . "/" . $name;
     }
 }
