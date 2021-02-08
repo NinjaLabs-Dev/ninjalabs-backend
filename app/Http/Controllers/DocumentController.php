@@ -38,7 +38,8 @@ class DocumentController extends Controller
     public function redirectToNew($slug) {
         $slug = explode(".", $slug);
         $slug = $slug[0];
-        return Image::where('slug', $slug)->get()->toArray();
+        //return Image::where('slug', $slug)->get()->toArray();
+        return Redirect::route('login');
     }
 
     public function store(Request $request) {
