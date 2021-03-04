@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Image;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,7 +42,23 @@ class ImportScalewayImages extends Command
 
         $this->warn('Starting import');
 
-        return $this->info(json_encode(Storage::allFiles('/images')));
+        $files = Storage::allFiles('/images');
+
+        foreach ($files as $file => $i) {
+            $this->info('Importing: ' . $i . ' / ' . count($files));
+
+            $name = explode('/', $file)[1];
+            $type = mime_content_type($name);
+            $img = new Image;
+            $img->owner_id = 1;
+            $img->slug = $name;
+            $img->url = Storage::url($file);
+            $img->type = $type;
+            $img->dir = $file;
+            $img->save();
+        }
+
+        $this->info('Done');
 
         return 1;
     }
