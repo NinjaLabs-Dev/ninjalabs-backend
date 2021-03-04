@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Image;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ImportScalewayImages extends Command
@@ -48,7 +49,7 @@ class ImportScalewayImages extends Command
             $this->info('Importing: ' . $i . ' / ' . count($files));
 
             $name = explode('/', $file)[1];
-            $slug = explode('.', $name)[1];
+            $slug = explode('.', $name)[0];
             $type = Storage::mimeType($file);
             $img = new Image;
             $img->owner_id = 1;
