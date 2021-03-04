@@ -49,6 +49,7 @@ class ImportScalewayImages extends Command
 
             $name = explode('/', $file)[1];
             $type = Storage::mimeType($file);
+            return $this->info($name);
             $img = new Image;
             $img->owner_id = 1;
             $img->slug = $name;
