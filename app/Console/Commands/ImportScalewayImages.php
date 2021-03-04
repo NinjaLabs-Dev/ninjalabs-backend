@@ -41,7 +41,7 @@ class ImportScalewayImages extends Command
 
         $this->warn('Starting import');
 
-        return $this->info(Storage::allFiles('/images'));
+        return $this->info(json_encode(Storage::allFiles('/images')));
 
         return 1;
     }
