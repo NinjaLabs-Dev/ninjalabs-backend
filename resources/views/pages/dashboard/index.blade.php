@@ -5,9 +5,18 @@
 
 @section('content')
     <div class="row content w-100 min-h-100 flex justify-content-center align-items-center">
-        <div class="col-lg-8 storage-inf links-container rounded bg-gray-800 px-4 py-4 my-4 text-white flex align-items-center justify-content-centero">
+        <div class="col-lg-8 shadow storage-inf links-container rounded bg-gray-100 border px-4 py-4 my-4 flex align-items-center justify-content-between">
             {{ $file_count }} images
-{{--            totaling {{ $storage }}--}}
+            <div class="button-controls">
+                <a href="{{ route('show.overview') }}">
+                    <button class="inline-block mx-2 px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none">
+                        Shows
+                    </button>
+                </a>
+                <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-indigo-500 rounded shadow ripple hover:shadow-lg hover:bg-indigo-600 focus:outline-none">
+                    Upload
+                </button>
+            </div>
         </div>
         @if(old($url))
             <div class="col-lg-8">
@@ -19,7 +28,7 @@
         <div class="col-lg-8">
             <div class="image-container">
                 @foreach ($images as $image)
-                    <div class="image bg-gray-800 rounded w-100 py-2 px-2 text-white flex justify-content-between align-items-center my-2 hover:bg-gray-600 hover:shadow transition">
+                    <div class="image bg-gray-100 border rounded-sm w-100 py-2 px-2 flex justify-content-between align-items-center my-2 hover:bg-gray-200 hover:shadow transition">
                         <div class="info flex align-items-center">
                             <div class="w-10 h-10 rounded-sm overflow-hidden shadow-inner text-center bg-purple table cursor-pointer flex align-items-center mb-0">
                                 <img src="{{ $image->is_public ? $image->url : $image->private_url }}" class=" object-cover object-center w-full h-full visible group-hover:hidden" />
@@ -70,7 +79,7 @@
             </div>
 
             @if(!is_null($images->links()))
-                <div class="links-container rounded bg-gray-800 px-4 py-4 mt-4 text-white">
+                <div class="links-container rounded bg-gray-200 px-4 py-4 mt-4 mb-4 text-white">
                     {{ $images->links() }}
                 </div>
             @endif

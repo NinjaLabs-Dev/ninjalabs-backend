@@ -8,3 +8,8 @@
 @import '~bootstrap/scss/bootstrap';
 
 @import '~material-icons/iconfont/material-icons.scss';
+
+.el-loading-spinner {
+    display: flex;
+    justify-content: center;
+}

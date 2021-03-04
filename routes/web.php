@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pages\LoginController,
     App\Http\Controllers\Pages\DashboardController,
     App\Http\Controllers\DocumentController,
-    App\Http\Controllers\Pages\InterestController
+    App\Http\Controllers\Pages\InterestController,
+    \App\Http\Controllers\Pages\ShowController
     ;
 
 /*
@@ -20,6 +21,7 @@ use App\Http\Controllers\Pages\LoginController,
 */
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/shows', [ShowController::class, 'index'])->name('show.overview');
 Route::get('/interests', [InterestController::class, 'index'])->name('interest.overview');
 Route::get('/interests/{id}', [InterestController::class, 'delete'])->name('interest.delete');
 

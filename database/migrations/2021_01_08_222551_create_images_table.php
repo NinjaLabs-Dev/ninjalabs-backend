@@ -15,13 +15,13 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('owner_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('slug');
             $table->string('url');
             $table->longText('private_url')->nullable();
             $table->string('type');
             $table->string('dir');
             $table->integer('is_public')->default(true);
-            $table->integer('is_archived')->default(false);
             $table->timestamps();
         });
     }

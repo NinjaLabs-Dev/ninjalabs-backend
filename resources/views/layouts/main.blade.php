@@ -2,8 +2,8 @@
 @yield('title')
 @endcomponent
 
-<body class="min-h-full">
-    <div class="page-container w-100 min-vh-100 flex flex-column m-0 dark:bg-gray-900 dark:text-white" id="app">
+<body class="min-h-full bg-gray-100">
+    <div class="page-container w-100 min-vh-100 flex flex-column m-0" id="app">
         @include('_partials.navbar')
         @yield('content')
     </div>

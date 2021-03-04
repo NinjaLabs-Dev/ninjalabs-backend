@@ -6,7 +6,7 @@
 <div class="page-container min-vh-100 row w-full mx-0" id="app">
     <div class="content-container col-md-12 flex justify-content-center">
         <div class="col-md-3 login-container flex flex-column items-center justify-content-center">
-            <div class="login-card card flex flex-column align-items-center dark:bg-gray-600 w-100 shadow-sm">
+            <div class="login-card card flex flex-column align-items-center bg-gray-200 dark:bg-gray-600 w-100 shadow-sm">
                 <div class="login-icon flex justify-center items-center -top-10 relative">
                     <div class="inner-container bg-gradient-to-tr from-red-700 to-pink-600 p-3 rounded shadow">
                         <svg width="32" height="32" class="text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

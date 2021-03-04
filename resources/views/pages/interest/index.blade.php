@@ -5,13 +5,13 @@
 
 @section('content')
     <div class="row content w-100 min-h-100 flex justify-content-center align-items-center">
-        <div class="col-lg-8 storage-inf links-container rounded bg-gray-800 px-4 py-4 my-4 text-white flex align-items-center">
+        <div class="col-lg-8 shadow storage-inf links-container rounded bg-gray-100 border px-4 py-4 my-4 flex align-items-center justify-content-between">
             {{ $submission_count }} submissions
         </div>
         <div class="col-lg-8">
             <div class="image-container">
                 @foreach ($interests as $submission)
-                    <div class="image bg-gray-800 rounded w-100 py-2 px-2 text-white flex justify-content-between align-items-center my-2 hover:bg-gray-600 hover:shadow transition">
+                    <div class="image bg-gray-100 border rounded-sm w-100 py-2 px-2 flex justify-content-between align-items-center my-2 hover:bg-gray-200 hover:shadow transition">
                         <div class="info flex align-items-center">
                             <div class="details flex flex-col justify-content-center ml-4">
                                 <span>{{ $submission->name }}</span>
@@ -34,7 +34,7 @@
             </div>
 
             @if(!is_null($interests->links()))
-                <div class="links-container rounded bg-gray-800 px-4 py-4 mt-4 text-white">
+                <div class="links-container rounded bg-gray-200 px-4 py-4 mt-4">
                     {{ $interests->links() }}
                 </div>
             @endif

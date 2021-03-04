@@ -26,37 +26,14 @@ class DashboardController extends Controller
 
         $files = Image::all();
 
-//        $diskUseage = Cache::remember('disk-space', 3600, function() {
-//            $space = 0;
-//            foreach (Storage::all() as $f) {
-//                $space += Storage::size($f);
-//            }
-//
-//            return self::formatBytes($space);
-//        });
-
-
         return view('pages.dashboard.index')
             ->with('files', $files)
-//            ->with('storage', $diskUseage)
             ->with('images', Image::orderBy('created_at', 'desc')->paginate(50))
             ->with('url', null)
             ->with('file_count', $files->count());
     }
 
-
-    private function formatBytes($bytes, $precision = 2) {
-        $units = array('B', 'KB', 'MB', 'GB', 'TB');
-
-        $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
-        $bytes /= (1 << (10 * $pow));
-
-        return round($bytes, $precision) . ' ' . $units[$pow];
-    }
-
-    public function destroy(\Illuminate\Support\Facades\Request $request, $id) {
+    public function destroy($id) {
         if(is_null($id)) {
             return response()->json([
                 'status' => 'error',
