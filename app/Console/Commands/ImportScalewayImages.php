@@ -46,7 +46,7 @@ class ImportScalewayImages extends Command
         $files = Storage::allFiles('/images');
 
         foreach ($files as $i => $file) {
-            $this->info('Importing: ' . $i . ' / ' . count($files));
+            $this->info('Importing: ' . $i . ' / ' . count($files) . ' - ' . $i*(100/count($files)) . '%');
 
             $name = explode('/', $file)[1];
             $slug = explode('.', $name)[0];
