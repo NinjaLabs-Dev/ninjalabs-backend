@@ -50,12 +50,6 @@ class DocumentController extends Controller
         } else {
             $client = ApiToken::where('id',  $request->header('id'))->where('token',  $request->header('token'))->first();
 
-            return [
-                $client,
-                $request->header('id'),
-                $request->header('token')
-            ];
-
             if(is_null($client)) {
                 return response()->json([
                     'status' => 403,
