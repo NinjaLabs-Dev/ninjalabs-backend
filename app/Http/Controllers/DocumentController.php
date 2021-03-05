@@ -87,6 +87,7 @@ class DocumentController extends Controller
 
         $image = new Image();
         $image->slug = $name;
+        $image->owner_id = $client->user_id;
         $image->url = $url;
         $image->dir = $dir;
         $image->type = $imgType;
