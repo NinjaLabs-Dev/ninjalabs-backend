@@ -43,15 +43,15 @@ class MysqlBackup extends Command
         $this->info("Backup started");
 
         $filename = "backup-" . Carbon::now()->format('d-m-Y_H-i-s') . ".sql";
-        $command = "mysqldump --user=" . config("DB_USERNAME") .
-            " --password=" . config("DB_PASSWORD") .
-            " --host=" . config("DB_HOST") . " " .
-            config("DB_DATABASE") . " > \"" . storage_path() .
+        $command = "mysqldump --user=" . config("database.connections.mysql.username") .
+            " --password=" . config("database.connections.mysql.password") .
+            " --host=" . config("database.connections.mysql.host") . " " .
+            config("database.connections.mysql.database") . " > \"" . storage_path() .
             "/app/" . $filename . "\"";
 
         exec($command, $output, $result);
 
-        $this->info($command);
+        $this->info(implode($output));
         $this->info("Backup created");
 
         if(!$result) {
