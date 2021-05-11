@@ -30,6 +30,7 @@
     "dependencies": {
         "el-table-infinite-scroll": "^1.0.10",
         "element-ui": "^2.15.1",
-        "material-icons": "^0.5.4"
+        "material-icons": "^0.5.4",
+        "moment-timezone": "^0.5.33"
     }
 }

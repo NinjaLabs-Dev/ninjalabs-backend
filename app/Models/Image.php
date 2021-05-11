@@ -10,4 +10,8 @@ class Image extends Model
     use HasFactory;
 
     protected $table = 'images';
+
+    public function user() {
+        return $this->belongsTo(User::class, 'id', 'owner_id');
+    }
 }

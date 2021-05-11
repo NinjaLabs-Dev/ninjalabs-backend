@@ -5,8 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pages\LoginController,
     App\Http\Controllers\Pages\DashboardController,
     App\Http\Controllers\DocumentController,
-    App\Http\Controllers\Pages\InterestController,
-    \App\Http\Controllers\Pages\ShowController
+    \App\Http\Controllers\Pages\CustomController,
+    \App\Http\Controllers\Resources\CustomController as CustomControllerResource,
+    \App\Http\Controllers\Pages\DBBackupController,
+    \App\Http\Controllers\Resources\TwitchUserController as TwitchUserControllerResources,
+    \App\Http\Controllers\pages\TwitchUserController
     ;
 
 /*
@@ -21,9 +24,10 @@ use App\Http\Controllers\Pages\LoginController,
 */
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/shows', [ShowController::class, 'index'])->name('show.overview');
-Route::get('/interests', [InterestController::class, 'index'])->name('interest.overview');
-Route::get('/interests/{id}', [InterestController::class, 'delete'])->name('interest.delete');
+Route::get('/customs', [CustomController::class, 'index'])->name('custom.urls');
+Route::get('/backups', [DBBackupController::class, 'index'])->name('backups');
+Route::get('/backups/{id}', [DBBackupController::class, 'download']);
+Route::get('/twitch-users', [TwitchUserController::class, 'index'])->name('twitch');
 
 //Route::get('/temp', [\App\Http\Controllers\Pages\DashboardController::class, 'temp']);
 
@@ -34,6 +38,7 @@ Route::prefix('image')->group(function() {
     Route::get('/update/{id}/{public}', [DashboardController::class, 'update'])->name('image.update');
     Route::get('/url/{id}', [DashboardController::class, 'getPrivateURL'])->name('image.url');
     Route::get('/delete/{id}', [DashboardController::class, 'destroy'])->name('image.delete');
+    Route::get('/{slug}', [DocumentController::class, 'index']);
 });
 
 Route::domain('cdn.ninjalabs.dev')->group(function () {
@@ -43,3 +48,18 @@ Route::domain('cdn.ninjalabs.dev')->group(function () {
 Route::domain('i.ninjalabs.dev')->group(function () {
     Route::get('/{slug}', [DocumentController::class, 'redirectToNew'])->name('image');
 });
+
+Route::prefix('api')->group(function() {
+    Route::resource('/custom-images', CustomControllerResource::class, [
+        'only' => ['index', 'store', 'destroy']
+    ])->names('customs');
+    Route::resource('/twitch-users', TwitchUserControllerResources::class, [
+        'only' => ['index', 'update', 'destroy']
+    ]);
+});
+
+if(config('app.env') !== 'production') {
+    Route::domain('localhost')->group(function () {
+        Route::get('/{slug}', [DocumentController::class, 'index'])->name('image');
+    });
+}

@@ -5,16 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\ApiToken;
 use App\Models\Image;
 use Illuminate\Http\Request;
-use Illuminate\Http\File;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image as ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Mimey\MimeTypes;
-use Illuminate\Support\Facades\Cache;
-use GuzzleHttp\Psr7\Stream;
-use GuzzleHttp\Psr7\CachingStream;
+use WebPConvert\WebPConvert;
 
 class DocumentController extends Controller
 {
@@ -25,6 +23,9 @@ class DocumentController extends Controller
 
         if(!is_null($img)) {
             $img = $img->toArray();
+            $response = Response::make(ImageManager::make(Storage::get($img["dir"]))->encode(explode('/', $img["type"])[1]))->header('Content-Type', $img["type"]);
+
+            return $response;
             return response(Storage::get($img["dir"]))->withHeaders([
                 'Content-Type' => $img["type"],
             ]);
@@ -75,6 +76,7 @@ class DocumentController extends Controller
         $mimes = new MimeTypes;
         $img = $rawimg->encode($mimes->getExtension($imgType), 75);
 
+
         $folders = Storage::directories();
         if(!in_array('images', $folders)) {
             Storage::makeDirectory('images');
@@ -82,7 +84,10 @@ class DocumentController extends Controller
 
         $dir = 'images/' . $name . '.' . $mimes->getExtension($imgType);
 
-        $res = Storage::put($dir, $img, 'public');
+        $res = Storage::put($dir, $img, [
+            'visibility' => 'public',
+            //'mimetype' => $mimes->getMimeType($imgType)
+        ]);
         $url = Storage::url($dir);
 
         $image = new Image();

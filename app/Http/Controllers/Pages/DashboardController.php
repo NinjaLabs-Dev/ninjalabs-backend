@@ -3,16 +3,12 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
-use App\Models\ApiToken;
 use App\Models\Image;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Http\Testing\MimeType;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -24,11 +20,11 @@ class DashboardController extends Controller
 
     public function index() {
 
-        $files = Image::all();
+        $files = User::findOrFail(Auth::user()->id)->images();
 
         return view('pages.dashboard.index')
             ->with('files', $files)
-            ->with('images', Image::orderBy('created_at', 'desc')->paginate(50))
+            ->with('images', Image::orderBy('created_at', 'desc')->where('owner_id', Auth::user()->id)->paginate(25))
             ->with('url', null)
             ->with('file_count', $files->count());
     }

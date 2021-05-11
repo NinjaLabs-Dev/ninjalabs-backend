@@ -18,4 +18,5 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/tailwind.css', 'public/css', [
         tailwind('tailwind.config.js')
     ])
-    .version();
+    .version()
+    .disableNotifications();
