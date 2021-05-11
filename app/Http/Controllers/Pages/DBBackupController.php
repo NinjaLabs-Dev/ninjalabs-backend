@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class DBBackupController extends Controller
 {
     public function __construct() {
-        $this->middleware(['auth', 'can:sql backups']);
+        $this->middleware(['auth', 'can:mysql backups']);
     }
 
     public function index() {
