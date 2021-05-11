@@ -52,7 +52,6 @@ class MysqlBackup extends Command
         exec($command, $output, $result);
 
         $this->info($command);
-        $this->info($output);
         $this->info("Backup created");
 
         if(!$result) {
