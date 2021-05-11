@@ -24,8 +24,6 @@ class DocumentController extends Controller
         if(!is_null($img)) {
             $img = $img->toArray();
             $response = Response::make(ImageManager::make(Storage::get($img["dir"]))->encode(explode('/', $img["type"])[1]))->header('Content-Type', $img["type"]);
-
-            return $response;
             return response(Storage::get($img["dir"]))->withHeaders([
                 'Content-Type' => $img["type"],
             ]);
