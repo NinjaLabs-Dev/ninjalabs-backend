@@ -51,8 +51,9 @@ class MysqlBackup extends Command
 
         exec($command, $output, $result);
 
+        $this->info($command);
+        $this->info($output);
         $this->info("Backup created");
-        $this->info($result);
 
         if(!$result) {
             $file = Storage::disk('local')->get($filename);
