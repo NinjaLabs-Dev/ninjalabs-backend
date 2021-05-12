@@ -128,7 +128,6 @@
       <excludeFolder url="file://$MODULE_DIR$/public/css" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-permission" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fomvasss/laravel-meta-tags" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/torann/laravel-meta-tags" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

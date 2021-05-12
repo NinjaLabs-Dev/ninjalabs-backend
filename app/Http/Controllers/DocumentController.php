@@ -13,8 +13,6 @@ use Intervention\Image\Facades\Image as ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Mimey\MimeTypes;
 use WebPConvert\WebPConvert;
-use Torann\LaravelMetaTags\Facades\MetaTag;
-
 class DocumentController extends Controller
 {
     public function index($slug) {
