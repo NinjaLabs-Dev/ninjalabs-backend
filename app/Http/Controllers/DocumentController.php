@@ -21,6 +21,9 @@ class DocumentController extends Controller
 //            'Content-Type' => 'image/gif'
 //        ]);
         $slug = explode(".", $slug);
+        if(isset($slug[1])) {
+            return Redirect::away('/' . $slug[0]);
+        }
         $slug = $slug[0];
         $img = Image::where('slug', $slug)->first();
 
@@ -79,6 +82,7 @@ class DocumentController extends Controller
 
         if($request->file('image')->getMimeType() === 'image/gif') {
             $img = $request->file('image')->getContent();
+            $fileExt = '.gif';
         }
 
 
@@ -103,6 +107,6 @@ class DocumentController extends Controller
         $image->type = $imgType;
         $image->save();
 
-        return config('app.cdn_url') . "/" . $name;
+        return config('app.cdn_url') . "/" . $name . $fileExt ?? '';
     }
 }
