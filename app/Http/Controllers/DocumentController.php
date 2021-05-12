@@ -80,6 +80,7 @@ class DocumentController extends Controller
         $mimes = new MimeTypes;
         $img = $rawimg->encode($mimes->getExtension($imgType), 75);
 
+        $fileExt = '';
         if($request->file('image')->getMimeType() === 'image/gif') {
             $img = $request->file('image')->getContent();
             $fileExt = '.gif';
@@ -107,6 +108,6 @@ class DocumentController extends Controller
         $image->type = $imgType;
         $image->save();
 
-        return config('app.cdn_url') . "/" . $name . $fileExt ?? '';
+        return config('app.cdn_url') . "/" . $name . $fileExt;
     }
 }
