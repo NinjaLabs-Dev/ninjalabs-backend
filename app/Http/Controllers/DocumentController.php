@@ -13,6 +13,7 @@ use Intervention\Image\Facades\Image as ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Mimey\MimeTypes;
 use WebPConvert\WebPConvert;
+
 class DocumentController extends Controller
 {
     public function index($slug) {
@@ -26,10 +27,9 @@ class DocumentController extends Controller
         if(!is_null($img)) {
             $img = $img->toArray();
             //$response = Response::make(ImageManager::make(Storage::get($img["dir"]))->encode(explode('/', $img["type"])[1]))->header('Content-Type', $img["type"]);
-//            return response(Storage::get($img["dir"]))->withHeaders([
-//                'Content-Type' => $img["type"],
-//            ]);
-            return view('pages.image')->with('src', $img['url'])->with('slug', $img['slug']);
+            return response(Storage::get($img["dir"]))->withHeaders([
+                'Content-Type' => $img["type"],
+            ]);
         } else {
             return response(Storage::get('images/404.png'))->withHeaders([
                 'Content-Type' => 'image/png',
