@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ApiToken;
 use App\Models\Image;
+use Eusonlito\LaravelMeta\Meta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -16,6 +17,7 @@ use WebPConvert\WebPConvert;
 
 class DocumentController extends Controller
 {
+
     public function index($slug) {
 //        return response(Storage::get('test/tenor.gif'))->withHeaders([
 //            'Content-Type' => 'image/gif'
@@ -27,6 +29,9 @@ class DocumentController extends Controller
         if(!is_null($img)) {
             $img = $img->toArray();
             //$response = Response::make(ImageManager::make(Storage::get($img["dir"]))->encode(explode('/', $img["type"])[1]))->header('Content-Type', $img["type"]);
+            Meta::set('og:image', $img['url']);
+            Meta::set('theme-color', '#111111');
+            Meta::set('twitter:card', 'summary_large_image');
             return response(Storage::get($img["dir"]))->withHeaders([
                 'Content-Type' => $img["type"],
             ]);
