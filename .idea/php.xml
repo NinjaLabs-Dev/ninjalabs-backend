@@ -118,7 +118,7 @@
       <path value="$PROJECT_DIR$/vendor/rosell-dk/image-mime-type-guesser" />
       <path value="$PROJECT_DIR$/vendor/rosell-dk/webp-convert" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
-      <path value="$PROJECT_DIR$/vendor/eusonlito/laravel-meta" />
+      <path value="$PROJECT_DIR$/vendor/fomvasss/laravel-meta-tags" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
