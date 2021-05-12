@@ -41,21 +41,25 @@ Route::prefix('image')->group(function() {
     Route::get('/{slug}', [DocumentController::class, 'index']);
 });
 
-Route::domain('cdn.ninjalabs.dev')->group(function () {
-    Route::get('/{slug}', [DocumentController::class, 'index'])->name('image');
-});
+//Route::domain('cdn.ninjalabs.dev')->group(function () {
+//    Route::get('/{slug}', [DocumentController::class, 'index'])->name('image');
+//});
 
 Route::domain('i.ninjalabs.dev')->group(function () {
-    Route::get('/{slug}', [DocumentController::class, 'redirectToNew'])->name('image');
+    Route::get('/{slug}', [DocumentController::class, 'redirectToNew']);
+});
+
+Route::domain('{domain}')->group(function() {
+    Route::get('/{slug}', [DocumentController::class, 'index'])->name('image');
 });
 
 Route::prefix('api')->group(function() {
     Route::resource('/custom-images', CustomControllerResource::class, [
         'only' => ['index', 'store', 'destroy']
     ])->names('customs');
-    Route::resource('/twitch-users', TwitchUserControllerResources::class, [
-        'only' => ['index', 'update', 'destroy']
-    ]);
+//    Route::resource('/twitch-users', TwitchUserControllerResources::class, [
+//        'only' => ['index', 'update', 'destroy']
+//    ]);
 });
 
 if(config('app.env') !== 'production') {

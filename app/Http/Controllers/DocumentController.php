@@ -16,7 +16,8 @@ use WebPConvert\WebPConvert;
 
 class DocumentController extends Controller
 {
-    public function index($slug) {
+    public function index($slug, $domain) {
+        return $domain;
 //        return response(Storage::get('test/tenor.gif'))->withHeaders([
 //            'Content-Type' => 'image/gif'
 //        ]);
