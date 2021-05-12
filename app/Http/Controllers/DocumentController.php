@@ -17,13 +17,16 @@ use WebPConvert\WebPConvert;
 class DocumentController extends Controller
 {
     public function index($slug) {
+//        return response(Storage::get('test/tenor.gif'))->withHeaders([
+//            'Content-Type' => 'image/gif'
+//        ]);
         $slug = explode(".", $slug);
         $slug = $slug[0];
         $img = Image::where('slug', $slug)->first();
 
         if(!is_null($img)) {
             $img = $img->toArray();
-            $response = Response::make(ImageManager::make(Storage::get($img["dir"]))->encode(explode('/', $img["type"])[1]))->header('Content-Type', $img["type"]);
+            //$response = Response::make(ImageManager::make(Storage::get($img["dir"]))->encode(explode('/', $img["type"])[1]))->header('Content-Type', $img["type"]);
             return response(Storage::get($img["dir"]))->withHeaders([
                 'Content-Type' => $img["type"],
             ]);
@@ -74,6 +77,11 @@ class DocumentController extends Controller
         $mimes = new MimeTypes;
         $img = $rawimg->encode($mimes->getExtension($imgType), 75);
 
+        if($request->file('image')->getMimeType() === 'image/gif') {
+            $img = $request->file('image')->getContent();
+        }
+
+
 
         $folders = Storage::directories();
         if(!in_array('images', $folders)) {
@@ -83,8 +91,7 @@ class DocumentController extends Controller
         $dir = 'images/' . $name . '.' . $mimes->getExtension($imgType);
 
         $res = Storage::put($dir, $img, [
-            'visibility' => 'public',
-            //'mimetype' => $mimes->getMimeType($imgType)
+            'visibility' => 'public'
         ]);
         $url = Storage::url($dir);
 
