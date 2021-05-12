@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\ApiToken;
 use App\Models\Image;
-use Fomvasss\LaravelMetaTags\Models\MetaTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -14,6 +13,7 @@ use Intervention\Image\Facades\Image as ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Mimey\MimeTypes;
 use WebPConvert\WebPConvert;
+use Torann\LaravelMetaTags\Facades\MetaTag;
 
 class DocumentController extends Controller
 {
@@ -27,15 +27,11 @@ class DocumentController extends Controller
 
         if(!is_null($img)) {
             $img = $img->toArray();
-            MetaTag::setTags([
-                'og:image' => $img['url'],
-                'theme-color' => '#111111',
-                'twitter:card' => 'summary_large_image'
-            ]);
             //$response = Response::make(ImageManager::make(Storage::get($img["dir"]))->encode(explode('/', $img["type"])[1]))->header('Content-Type', $img["type"]);
-            return response(Storage::get($img["dir"]))->withHeaders([
-                'Content-Type' => $img["type"],
-            ]);
+//            return response(Storage::get($img["dir"]))->withHeaders([
+//                'Content-Type' => $img["type"],
+//            ]);
+            return view('pages.image')->with('src', $img['url'])->with('slug', $img['slug']);
         } else {
             return response(Storage::get('images/404.png'))->withHeaders([
                 'Content-Type' => 'image/png',

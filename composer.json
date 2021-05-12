@@ -20,6 +20,7 @@
         "league/flysystem-aws-s3-v3": "~1.0",
         "rosell-dk/webp-convert": "^2.5",
         "spatie/laravel-permission": "^4.0",
+        "torann/laravel-meta-tags": "^3.0",
         "xantios/mimey": "^2.1"
     },
     "require-dev": {
