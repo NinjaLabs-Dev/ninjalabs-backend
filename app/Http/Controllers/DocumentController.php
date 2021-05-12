@@ -17,8 +17,7 @@ use WebPConvert\WebPConvert;
 
 class DocumentController extends Controller
 {
-
-    public function index($slug) {
+    public static function index($slug) {
 //        return response(Storage::get('test/tenor.gif'))->withHeaders([
 //            'Content-Type' => 'image/gif'
 //        ]);
@@ -28,10 +27,10 @@ class DocumentController extends Controller
 
         if(!is_null($img)) {
             $img = $img->toArray();
-            //$response = Response::make(ImageManager::make(Storage::get($img["dir"]))->encode(explode('/', $img["type"])[1]))->header('Content-Type', $img["type"]);
             Meta::set('og:image', $img['url']);
             Meta::set('theme-color', '#111111');
             Meta::set('twitter:card', 'summary_large_image');
+            //$response = Response::make(ImageManager::make(Storage::get($img["dir"]))->encode(explode('/', $img["type"])[1]))->header('Content-Type', $img["type"]);
             return response(Storage::get($img["dir"]))->withHeaders([
                 'Content-Type' => $img["type"],
             ]);
