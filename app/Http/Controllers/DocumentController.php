@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CustomImageResource;
+use App\Http\Resources\ImageResource;
 use App\Models\ApiToken;
+use App\Models\Customs;
+use App\Models\Domain;
+use App\Models\ErrorFile;
 use App\Models\Image;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -16,28 +22,69 @@ use WebPConvert\WebPConvert;
 
 class DocumentController extends Controller
 {
-    public function index($slug) {
-//        return response(Storage::get('test/tenor.gif'))->withHeaders([
-//            'Content-Type' => 'image/gif'
-//        ]);
+    public function index($domain, $slug) {
         $slug = explode(".", $slug);
         if(isset($slug[1])) {
             return Redirect::away('/' . $slug[0]);
         }
         $slug = $slug[0];
-        $img = Image::where('slug', $slug)->first();
+        $domain_raw = $domain;
 
-        if(!is_null($img)) {
-            $img = $img->toArray();
-            //$response = Response::make(ImageManager::make(Storage::get($img["dir"]))->encode(explode('/', $img["type"])[1]))->header('Content-Type', $img["type"]);
-            return response(Storage::get($img["dir"]))->withHeaders([
-                'Content-Type' => $img["type"],
-            ]);
-        } else {
-            return response(Storage::get('images/404.png'))->withHeaders([
-                'Content-Type' => 'image/png',
+        if(config('app.env') !== 'production') {
+            $domain = 'ninjalabs.dev';
+            $domain_raw = 'ninjalabs.dev';
+        }
+
+        $domain = Domain::where('domain', $domain)->first();
+
+        if(!$domain) {
+            return $this->redirectError($domain_raw);
+        }
+
+        $user = User::where('id', $domain->user_id)->first();
+
+        if(!$user) {
+            return $this->redirectError($domain_raw);
+        }
+
+        $img = Image::with('user')->where('slug', $slug)->where('owner_id', $user->id)->first();
+        $custom  = Customs::with(['user', 'image'])->where('slug', $slug)->where('user_id', $user->id)->first();
+
+
+        if($img || $custom) {
+            $image = [];
+            if($img) {
+                $image = new ImageResource($img);
+            } elseif ($custom) {
+                $image = new ImageResource(Image::with('user')->where('id', $custom->image->id)->where('owner_id', $user->id)->first());
+            }
+
+            return response(Storage::get($image->dir))->withHeaders([
+                'Content-Type' => $image->type,
             ]);
         }
+
+        return $this->redirectError($domain_raw);
+
+    }
+
+    public static function redirectError($domain) {
+        $domain_check = Domain::where('domain', $domain)->first();
+
+        if($domain_check) {
+            $error_files = ErrorFile::where('domain_id', $domain_check->id)->get();
+
+            if($error_files) {
+                $error_file = $error_files->shuffle()->first();
+                return response(Storage::get($error_file->dir))->withHeaders([
+                    'Content-Type' => 'image/png',
+                ]);
+            }
+        }
+
+        return response(Storage::get('images/404.png'))->withHeaders([
+            'Content-Type' => 'image/png',
+        ]);
     }
 
     public function redirectToNew($slug) {

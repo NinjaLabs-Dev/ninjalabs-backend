@@ -12,6 +12,10 @@ class Image extends Model
     protected $table = 'images';
 
     public function user() {
-        return $this->belongsTo(User::class, 'id', 'owner_id');
+        return $this->belongsTo(User::class, 'owner_id');
     }
+
+    //public function domain() {
+    //    return $this->belongsTo('')
+    //}
 }

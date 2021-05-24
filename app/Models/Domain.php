@@ -10,4 +10,8 @@ class Domain extends Model
     public function user() {
         return $this->belongsTo(User::class, 'id', 'user_id');
     }
+
+    public function errorfile() {
+        return $this->hasMany(ErrorFile::class, 'id');
+    }
 }

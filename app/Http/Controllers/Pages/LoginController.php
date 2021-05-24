@@ -12,6 +12,12 @@ use App\Models\User;
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['guest'])->except('login');
+        $this->middleware(['auth'])->only('logout');
+    }
+
     public function index() {
         return view('pages.login');
     }
@@ -23,10 +29,20 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if( Auth::attempt(['name' => $request->username, 'password' => $request->password], true)) {
+        if(Auth::attempt(['name' => $request->username, 'password' => $request->password])) {
                 return Redirect::route('dashboard');
         } else {
             return Redirect::back()->withErrors(['message', 'No user was found with that name!']);
         }
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+
+        return Redirect::to('/login');
     }
 }

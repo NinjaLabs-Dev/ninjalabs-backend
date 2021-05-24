@@ -8,9 +8,7 @@
         <div class="col-lg-8 shadow storage-inf links-container rounded bg-gray-100 border px-4 py-4 my-4 flex align-items-center justify-content-between">
             {{ $file_count }} images
             <div class="button-controls">
-                <button class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-indigo-500 rounded shadow ripple hover:shadow-lg hover:bg-indigo-600 focus:outline-none">
-                    Upload
-                </button>
+                <dashboard-button-controls></dashboard-button-controls>
             </div>
         </div>
         @if(old($url))
@@ -74,7 +72,7 @@
             </div>
 
             @if(!is_null($images->links()))
-                <div class="links-container rounded bg-gray-200 px-4 py-4 mt-4 mb-4 text-white">
+                <div class="links-container rounded bg-gray-200 px-4 py-4 mt-4 mb-4 text-dark">
                     {{ $images->links() }}
                 </div>
             @endif

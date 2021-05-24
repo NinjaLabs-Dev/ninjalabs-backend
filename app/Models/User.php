@@ -47,6 +47,10 @@ class User extends Authenticatable
         return $this->hasMany(Domain::class);
     }
 
+    public function apiToken() {
+        return $this->hasOne(ApiToken::class);
+    }
+
     public function images() {
         return Image::where('owner_id', $this->id)->get();
     }
