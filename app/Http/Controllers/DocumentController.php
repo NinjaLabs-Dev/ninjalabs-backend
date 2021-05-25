@@ -25,10 +25,10 @@ class DocumentController extends Controller
     public function index(Request $request, $slug) {
         $hostname = $request->getHost();
         $hostname = explode('.', $hostname);
-        return $hostname;
         if(count($hostname) > 2) {
-            $hostname = array_splice($hostname, 0, 1);
+            unset($hostname[0]);
         }
+        return $hostname;
         $domain = implode('.', $hostname);
         $slug = explode(".", $slug);
         if(isset($slug[1])) {
