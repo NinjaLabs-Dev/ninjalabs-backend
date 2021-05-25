@@ -26,8 +26,8 @@ class DocumentController extends Controller
         $hostname = $request->getHost();
         $hostname = explode('.', $hostname);
         if(count($hostname) > 2) {
-            $hostname = array_splice($hostname, 0, 1);
             return $hostname;
+            $hostname = array_splice($hostname, 0, 1);
         }
         $domain = implode('.', $hostname);
         $slug = explode(".", $slug);
