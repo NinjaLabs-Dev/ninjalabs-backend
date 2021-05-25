@@ -141,8 +141,6 @@ class DocumentController extends Controller
             $fileExt = '.gif';
         }
 
-
-
         $folders = Storage::directories();
 
         $userDomain = Domain::where('user_id', $client->user_id)->where('default', true)->first();
@@ -155,7 +153,7 @@ class DocumentController extends Controller
             Storage::makeDirectory($fileDir);
         }
 
-        $dir = $fileDir . '/' . $name . '.' . $mimes->getExtension($imgType);
+        $dir = 'images' . '/' . $name . '.' . $mimes->getExtension($imgType);
 
         $res = Storage::put($dir, $img, [
             'visibility' => 'public'
