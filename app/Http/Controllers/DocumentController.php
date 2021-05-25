@@ -28,8 +28,8 @@ class DocumentController extends Controller
         if(count($hostname) > 2) {
             $hostname = array_splice($hostname, 0, 1);
         }
+        return $hostname;
         $domain = implode('.', $hostname);
-        return $domain;
         $slug = explode(".", $slug);
         if(isset($slug[1])) {
             return Redirect::away('/' . $slug[0]);
