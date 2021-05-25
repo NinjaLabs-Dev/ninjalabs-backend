@@ -31,6 +31,7 @@ class DocumentController extends Controller
         $slug = $slug[0];
         $domain_raw = $domain;
 
+        return $domain;
         if(config('app.env') !== 'production') {
             $domain = 'ninjalabs.dev';
             $domain_raw = 'ninjalabs.dev';
@@ -38,7 +39,6 @@ class DocumentController extends Controller
 
         $domain = Domain::where('domain', $domain)->first();
 
-        return $domain;
 
 
         if(!$domain) {
