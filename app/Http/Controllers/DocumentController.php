@@ -11,6 +11,7 @@ use App\Models\ErrorFile;
 use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
@@ -106,15 +107,15 @@ class DocumentController extends Controller
                 'status' => 403,
                 'message' => 'Authentication Error'
             ]);
-        } else {
-            $client = ApiToken::where('id',  $request->header('id'))->where('token',  $request->header('token'))->first();
+        }
 
-            if(is_null($client)) {
-                return response()->json([
-                    'status' => 403,
-                    'message' => 'Authentication Error'
-                ]);
-            }
+        $client = ApiToken::where('id',  $request->header('id'))->first();
+
+        if(is_null($client) && Hash::check($request->header('token'), $client->token)) {
+            return response()->json([
+                'status' => 403,
+                'message' => 'Authentication Error'
+            ]);
         }
 
         $validator = Validator::make($request->all(), [
