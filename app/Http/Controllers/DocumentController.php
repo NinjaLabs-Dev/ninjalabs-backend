@@ -144,19 +144,23 @@ class DocumentController extends Controller
 
 
         $folders = Storage::directories();
-        if(!in_array('images', $folders)) {
-            Storage::makeDirectory('images');
+
+        $userDomain = Domain::where('user_id', $client->user_id)->where('default', true)->first();
+        $imageDomain = $userDomain->sub . '.' . $userDomain->domain;
+        $fileDir = explode('.', $userDomain->domain)[0];
+
+        $fileDir = 'user_images/' . $fileDir;
+
+        if(!in_array($fileDir, $folders)) {
+            Storage::makeDirectory($fileDir);
         }
 
-        $dir = 'images/' . $name . '.' . $mimes->getExtension($imgType);
+        $dir = $fileDir . '/' . $name . '.' . $mimes->getExtension($imgType);
 
         $res = Storage::put($dir, $img, [
             'visibility' => 'public'
         ]);
         $url = Storage::url($dir);
-
-        $userDomain = Domain::where('user_id', $client->user_id)->where('default', true)->first();
-        $userDomain = $userDomain->sub . '.' . $userDomain->domain;
 
         $image = new Image();
         $image->slug = $name;
@@ -166,6 +170,6 @@ class DocumentController extends Controller
         $image->type = $imgType;
         $image->save();
 
-        return 'https://' . $userDomain . "/" . $name . $fileExt;
+        return 'https://' . $imageDomain . "/" . $name . $fileExt;
     }
 }
