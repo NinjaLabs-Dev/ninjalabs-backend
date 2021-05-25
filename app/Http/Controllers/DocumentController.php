@@ -155,6 +155,9 @@ class DocumentController extends Controller
         ]);
         $url = Storage::url($dir);
 
+        $userDomain = Domain::where('user_id', $client->user_id)->where('default', true)->first();
+        $userDomain = $userDomain->sub . '.' . $userDomain->domain;
+
         $image = new Image();
         $image->slug = $name;
         $image->owner_id = $client->user_id;
@@ -163,6 +166,6 @@ class DocumentController extends Controller
         $image->type = $imgType;
         $image->save();
 
-        return config('app.cdn_url') . "/" . $name . $fileExt;
+        return $userDomain . "/" . $name . $fileExt;
     }
 }

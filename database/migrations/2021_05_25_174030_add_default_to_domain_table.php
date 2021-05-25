@@ -1,0 +1,22 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddDefaultToDomainTable extends Migration
+{
+    public function up()
+    {
+        Schema::table('domain', function (Blueprint $table) {
+            $table->boolean('default')->default(true);
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('domain', function (Blueprint $table) {
+            $table->dropColumn('default');
+        });
+    }
+}
