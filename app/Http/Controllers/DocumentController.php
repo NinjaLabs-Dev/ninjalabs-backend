@@ -166,6 +166,6 @@ class DocumentController extends Controller
         $image->type = $imgType;
         $image->save();
 
-        return $userDomain . "/" . $name . $fileExt;
+        return 'https://' . $userDomain . "/" . $name . $fileExt;
     }
 }
