@@ -23,6 +23,6 @@ class CustomDomain
             'domain' => $domain
         ]);
 
-        return $next($request);
+        return $next($domain);
     }
 }
