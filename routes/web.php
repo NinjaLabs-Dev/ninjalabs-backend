@@ -60,7 +60,7 @@ Route::prefix('image')->group(function() {
 $domains = Domain::getDomainList();
 
 foreach ($domains as $domain) {
-    Route::domain('{' . $domain . '}')->group(function() {
+    Route::domain($domain)->group(function() {
         Route::get('/{slug}', [DocumentController::class, 'index']);
     });
 }

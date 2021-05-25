@@ -22,7 +22,8 @@ use WebPConvert\WebPConvert;
 
 class DocumentController extends Controller
 {
-    public function index($domain, $slug) {
+    public function index(Request $request, $slug) {
+        $domain = $request->getHost();
         $slug = explode(".", $slug);
         if(isset($slug[1])) {
             return Redirect::away('/' . $slug[0]);
