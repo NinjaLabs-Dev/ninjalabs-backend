@@ -1,5 +1,6 @@
 {
     "private": true,
+    "name": "ninjalabs-backend",
     "scripts": {
         "dev": "npm run development",
         "development": "mix",
