@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Domain;
 use App\Models\Image;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,7 @@ class ImportScalewayImages extends Command
      *
      * @var string
      */
-    protected $signature = 'scaleway:import';
+    protected $signature = 'scaleway:import {domain}';
 
     /**
      * The console command description.
@@ -46,17 +47,35 @@ class ImportScalewayImages extends Command
         $files = Storage::allFiles('/images');
 
         foreach ($files as $i => $file) {
-            $this->info('Importing: ' . $i . ' / ' . count($files) . ' - ' . $i*(100/count($files)) . '%');
+            $this->info('Importing: ' . $i . ' / ' . count($files) . ' - ' . $i * (100 / count($files)) . '%');
 
             $name = explode('/', $file)[1];
             $slug = explode('.', $name)[0];
             $type = Storage::mimeType($file);
+
+            $domain = Domain::where('domain', $this->argument('domain'))->firstOrFail();
+            $folder = 'user_images/' . explode('.', $domain->domain)[0];
+            $directories = Storage::directories();
+
+            if(!in_array('user_images', $directories)) {
+                Storage::makeDirectory('user_images');
+                $this->info('Made: user_images');
+            }
+
+            if(!in_array($folder, $directories)) {
+                Storage::makeDirectory($folder);
+                $this->info('Made: ' . $folder);
+            }
+
+            $newDir = $folder . '/' . explode('/', $file)[1];
+            $this->info('Moving File from ' . $file . ' to ' . $newDir);
+            Storage::move($file, $newDir);
             $img = new Image;
-            $img->owner_id = 1;
+            $img->owner_id = 2;
             $img->slug = $slug;
             $img->url = Storage::url($file);
             $img->type = $type;
-            $img->dir = $file;
+            $img->dir = $newDir;
             $img->save();
         }
 
