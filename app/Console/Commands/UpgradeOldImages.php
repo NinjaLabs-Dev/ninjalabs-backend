@@ -36,14 +36,16 @@ class UpgradeOldImages extends Command
             if(explode('/', $file->dir)[0] !== 'images') {
                 $this->info('Skipping Image: ' . $file->slug . ', already migrated');
             } else {
-                $newDir = str_replace('images', $folder, $file->dir);
-                $this->info('Moving File from ' . $file->dir . ' to ' . $newDir);
-                Storage::move($file->dir, $newDir);
-                $image = Image::findOrFail($file->id);
-                $image->dir = $newDir;
-                $image->url = Storage::url($newDir);
-                $image->save();
-                $this->info('Image Saved, Next!');
+                if(Storage::get($file->dir)) {
+                    $newDir = str_replace('images', $folder, $file->dir);
+                    $this->info('Moving File from ' . $file->dir . ' to ' . $newDir);
+                    Storage::move($file->dir, $newDir);
+                    $image = Image::findOrFail($file->id);
+                    $image->dir = $newDir;
+                    $image->url = Storage::url($newDir);
+                    $image->save();
+                    $this->info('Image Saved, Next!');
+                }
             }
         }
         $this->info('Done');
