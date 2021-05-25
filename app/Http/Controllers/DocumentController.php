@@ -38,6 +38,8 @@ class DocumentController extends Controller
 
         $domain = Domain::where('domain', $domain)->first();
 
+        return $domain;
+
 
         if(!$domain) {
             return $this->redirectError($domain_raw);
