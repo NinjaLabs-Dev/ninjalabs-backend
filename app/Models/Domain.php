@@ -14,4 +14,16 @@ class Domain extends Model
     public function errorfile() {
         return $this->hasMany(ErrorFile::class, 'id');
     }
+
+    public static function getDomainList() {
+        $domains = self::all();
+
+        $domainList = [];
+        foreach ($domains as $domain) {
+            $domain = $domain->sub . '.' . $domain->domain;
+            $domainList[] = $domain;
+        }
+
+        return $domainList;
+    }
 }

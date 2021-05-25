@@ -12,7 +12,8 @@ use App\Http\Controllers\Pages\LoginController,
     \App\Http\Controllers\pages\TwitchUserController,
     \App\Http\Controllers\Pages\UserSettings,
     \App\Http\Controllers\APITokenController,
-    \App\Http\Controllers\UserPasswordController
+    \App\Http\Controllers\UserPasswordController,
+    \App\Models\Domain
     ;
 
 /*
@@ -55,6 +56,14 @@ Route::prefix('image')->group(function() {
 //    Route::get('/{slug}', [DocumentController::class, 'redirectToNew']);
 //});
 //
+
+$domains = Domain::getDomainList();
+
+foreach ($domains as $domain) {
+    Route::domain($domain)->group(function() {
+        Route::get('/{slug}', [DocumentController::class, 'index']);
+    });
+}
 
 Route::prefix('api')->group(function() {
     Route::resource('/custom-images', CustomControllerResource::class, [
