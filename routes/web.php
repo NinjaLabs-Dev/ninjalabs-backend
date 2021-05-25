@@ -55,9 +55,6 @@ Route::prefix('image')->group(function() {
 //    Route::get('/{slug}', [DocumentController::class, 'redirectToNew']);
 //});
 //
-Route::domain('{domain}')->group(function() {
-    Route::get('/{slug}', [DocumentController::class, 'index'])->name('image');
-});
 
 Route::prefix('api')->group(function() {
     Route::resource('/custom-images', CustomControllerResource::class, [

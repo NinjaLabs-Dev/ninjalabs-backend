@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CustomDomain;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -42,6 +43,10 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
+
+        'domain' => [
+            \App\Http\Middleware\CustomDomain::class
         ],
     ];
 
