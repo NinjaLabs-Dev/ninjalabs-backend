@@ -27,8 +27,8 @@ class DocumentController extends Controller
         $hostname = explode('.', $hostname);
         if(count($hostname) > 2) {
             $hostname = array_splice($hostname, 0, 1);
+            return $hostname;
         }
-        return $hostname;
         $domain = implode('.', $hostname);
         $slug = explode(".", $slug);
         if(isset($slug[1])) {
