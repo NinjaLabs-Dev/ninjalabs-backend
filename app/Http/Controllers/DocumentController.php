@@ -23,7 +23,12 @@ use WebPConvert\WebPConvert;
 class DocumentController extends Controller
 {
     public function index(Request $request, $slug) {
-        $domain = $request->getHost();
+        $hostname = $request->getHost();
+        $hostname = explode('.', $hostname);
+        if(count($hostname) > 2) {
+            $hostname = array_splice($hostname, 0, 1);
+        }
+        $domain = implode('.', $hostname);
         $slug = explode(".", $slug);
         if(isset($slug[1])) {
             return Redirect::away('/' . $slug[0]);
@@ -31,7 +36,6 @@ class DocumentController extends Controller
         $slug = $slug[0];
         $domain_raw = $domain;
 
-        return $domain;
         if(config('app.env') !== 'production') {
             $domain = 'ninjalabs.dev';
             $domain_raw = 'ninjalabs.dev';
