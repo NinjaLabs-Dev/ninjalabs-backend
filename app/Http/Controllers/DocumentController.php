@@ -37,6 +37,8 @@ class DocumentController extends Controller
 
         $domain = Domain::where('domain', $domain)->first();
 
+        return $domain;
+
         if(!$domain) {
             return $this->redirectError($domain_raw);
         }
@@ -49,8 +51,6 @@ class DocumentController extends Controller
 
         $img = Image::with('user')->where('slug', $slug)->where('owner_id', $user->id)->first();
         $custom  = Customs::with(['user', 'image'])->where('slug', $slug)->where('user_id', $user->id)->first();
-
-        return $img;
 
         if($img || $custom) {
             $image = [];
