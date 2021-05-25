@@ -8,14 +8,14 @@ class AddDefaultToDomainTable extends Migration
 {
     public function up()
     {
-        Schema::table('domain', function (Blueprint $table) {
+        Schema::table('domains', function (Blueprint $table) {
             $table->boolean('default')->default(true);
         });
     }
 
     public function down()
     {
-        Schema::table('domain', function (Blueprint $table) {
+        Schema::table('domains', function (Blueprint $table) {
             $table->dropColumn('default');
         });
     }
