@@ -259,12 +259,13 @@ export default {
             options.theme.palette = palette;
             options.xaxis.categories = categories;
 
+            console.log("hi")
             console.log(categories)
 
             return options;
         },
         convertUptime: function(uptime, full = false) {
-            let time = moment().subtract('seconds', uptime);
+            let time = moment().subtract(uptime, 'seconds');
 
             if(full) {
                 return time.format('DD/mm/yyyy HH:mm:ss')
@@ -273,7 +274,7 @@ export default {
             return time.fromNow()
         },
         warningCheck: function(uptime) {
-             let time = moment().diff(moment().subtract('seconds', uptime), 'hours');
+             let time = moment().diff(moment().subtract(uptime, 'seconds'), 'hours');
 
             if(time === 0) return 'red';
 

@@ -47,7 +47,7 @@ class ServerStatsController extends Controller
                 $stats["network_out"][] = 0;
             }
 
-            $time[] = Carbon::parse($stat->created_at)->format('d/m/y H:m');
+            $time[] = Carbon::parse($stat->created_at)->format('d/m/y H:i');
         }
 
         $storage = ServerStat::where('server_id', $server_id)->where('down', false)->orderBy('created_at', 'desc')->get();
