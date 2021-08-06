@@ -11,7 +11,7 @@ class Server extends Model
     ];
 
     public function serverStats() {
-        return ServerStat::where('server_id', $this->id)->orderBy('created_at', 'desc')->get()->take(30);
+        return ServerStat::where('server_id', $this->id)->orderBy('created_at', 'desc')->get()->take(60);
     }
 
     public function stats() {
