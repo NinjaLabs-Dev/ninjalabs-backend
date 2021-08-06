@@ -19,6 +19,7 @@
         "laravel/ui": "^3.2",
         "league/flysystem-aws-s3-v3": "~1.0",
         "rosell-dk/webp-convert": "^2.5",
+        "soarecostin/file-vault": "^1.2",
         "spatie/laravel-permission": "^4.0",
         "xantios/mimey": "^2.1"
     },

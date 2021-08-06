@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Show Control')
+@section('title', 'URL Control')
 
 
 @section('content')

@@ -1,5 +1,7 @@
 window._ = require('lodash');
 
+window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle')
+
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -28,6 +30,11 @@ let token = document.head.querySelector('meta[name="csrf-token"]');
 if(token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 }
+
+let dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+let dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+    return new window.bootstrap.Dropdown(dropdownToggleEl)
+})
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

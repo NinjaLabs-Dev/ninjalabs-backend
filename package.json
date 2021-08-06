@@ -12,6 +12,7 @@
     },
     "devDependencies": {
         "@tailwindcss/postcss7-compat": "^2.0.3",
+        "apexcharts": "^3.27.3",
         "autoprefixer": "^9.8.6",
         "axios": "^0.21.1",
         "bootstrap": "^4.6.0",
@@ -33,6 +34,7 @@
         "el-table-infinite-scroll": "^1.0.10",
         "element-ui": "^2.15.1",
         "material-icons": "^0.5.4",
-        "moment-timezone": "^0.5.33"
+        "moment-timezone": "^0.5.33",
+        "vue-apexcharts": "^1.6.2"
     }
 }
