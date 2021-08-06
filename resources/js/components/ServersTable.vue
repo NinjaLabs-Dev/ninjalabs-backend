@@ -259,9 +259,6 @@ export default {
             options.theme.palette = palette;
             options.xaxis.categories = categories;
 
-            console.log("hi")
-            console.log(categories)
-
             return options;
         },
         convertUptime: function(uptime, full = false) {
