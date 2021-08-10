@@ -7,7 +7,7 @@
             <el-button class="px-2" style="float: right" type="primary" size="small" icon="el-icon-plus" @click="addServer">Add Server</el-button>
         </div>
 
-        <el-card class="box-card servers cursor-pointer" v-for="server in servers" :key="server.id" v-if="servers.length" :body-style="{padding: openServer === server.id ? '20px' : '0'}">
+        <el-card class="box-card servers cursor-pointer mb-4" v-for="server in servers" :key="server.id" v-if="servers.length" :body-style="{padding: openServer === server.id ? '20px' : '0'}">
             <div slot="header" class="d-flex justify-content-between align-items-center">
                 <h4>{{ server.name }} - <span class="opacity-50">{{ server.ip }}</span></h4>
                 <div class="d-flex justify-content-center align-items-center">
