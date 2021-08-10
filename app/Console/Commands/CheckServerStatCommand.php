@@ -28,12 +28,11 @@ class CheckServerStatCommand extends Command
                 $stat->server_id = $server->id;
                 $stat->down = true;
                 $stat->save();
-
-                return true;
+                break;
             }
 
-            $info = $info->json();
 
+            $info = $info->json();
             $stat = new ServerStat;
             $stat->server_id = $server->id;
             $stat->cpu = $info["data"]["cpu"];
@@ -46,9 +45,6 @@ class CheckServerStatCommand extends Command
             $stat->ssh_connections = $info["data"]["ssh"];
             $stat->uptime = $info["data"]["uptime"];
             $stat->save();
-
-            return true;
-
         }
 
         return true;
