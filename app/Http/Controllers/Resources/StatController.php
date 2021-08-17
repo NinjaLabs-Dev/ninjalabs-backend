@@ -18,11 +18,10 @@ class StatController extends Controller
 
     public function index(Request $request)
     {
-        $stats = ServerStat::where('created_at', '>', Carbon::now()->subHour())->get()->filter(function ($stat) {
+        $stats = ServerStat::where('created_at', '>', Carbon::now()->subHour())->distinct('server_id')->get()->filter(function ($stat) {
             return $stat->uptime <= 3600 ||
                 $stat->cpu >= 80 ||
-                round(($stat->memory_used / $stat->memory_total) * 100, 2) >= 75 ||
-                round(($stat->used_storage / $stat->total_storage) * 100, 2) >= 75;
+                round(($stat->memory_used / $stat->memory_total) * 100, 2) >= 75;
         });
 
         $servers = [];
