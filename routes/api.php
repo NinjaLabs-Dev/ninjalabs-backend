@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\DocumentController,
     App\Http\Controllers\APIFallback,
-    App\Http\Controllers\Resources\CustomController
+    App\Http\Controllers\Resources\StatController
     ;
 
 /*
@@ -22,4 +22,5 @@ Route::fallback([APIFallback::class, 'index']);
 
 Route::middleware('api')->group(function() {
     Route::post('/upload', [DocumentController::class, 'store'])->name('upload.file');
+    Route::get('/server-stats', [StatController::class, 'index']);
 });
