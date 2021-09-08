@@ -139,7 +139,7 @@ class DocumentController extends Controller
             $img = $rawimg->encode($mimes->getExtension($imgType), 75);
         } else {
             $img = $request->file('image')->getContent();
-            $imgType = $rawimg->getMimeType();
+            $imgType = $request->file('image')->getMimeType();
         }
 
         $fileExt = '';
