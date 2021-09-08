@@ -132,10 +132,11 @@ class DocumentController extends Controller
         $name = Str::random(5);
         $allowedMimeTypes = ['image/jpeg','image/gif','image/png'];
 
+        $mimes = new MimeTypes;
+
         if(in_array($request->file('image')->getClientMimeType(), $allowedMimeTypes)) {
             $rawimg = ImageManager::make($request->file('image')->getRealPath());
             $imgType = $rawimg->mime();
-            $mimes = new MimeTypes;
             $img = $rawimg->encode($mimes->getExtension($imgType), 75);
         } else {
             $img = $request->file('image')->getContent();
