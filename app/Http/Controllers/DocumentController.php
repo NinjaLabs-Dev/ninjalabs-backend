@@ -102,7 +102,6 @@ class DocumentController extends Controller
     }
 
     public function store(Request $request) {
-        $time_start = microtime(true);
         if(!($request->header('token') || $request->header('id'))) {
             return response()->json([
                 'status' => 403,
@@ -149,6 +148,7 @@ class DocumentController extends Controller
             $fileExt = '.gif';
         }
 
+        $time_start = microtime(true);
         $folders = Storage::directories();
 
         $userDomain = Domain::where('user_id', $client->user_id)->where('default', true)->first();
@@ -166,6 +166,7 @@ class DocumentController extends Controller
         $res = Storage::put($dir, $img, [
             'visibility' => 'public'
         ]);
+        $time_end = microtime(true);
         $url = Storage::url($dir);
 
         $image = new Image();
@@ -176,7 +177,6 @@ class DocumentController extends Controller
         $image->type = $imgType;
         $image->save();
 
-        $time_end = microtime(true);
         $execution_time = ($time_end - $time_start);
         return '<b>Total Execution Time:</b> '.($execution_time*1000).'Milliseconds';
         return 'https://' . $imageDomain . "/" . $name . $fileExt;
