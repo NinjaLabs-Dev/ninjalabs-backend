@@ -102,6 +102,8 @@ class DocumentController extends Controller
     }
 
     public function store(Request $request) {
+        $time_start = microtime(true);
+
         if(!($request->header('token') || $request->header('id'))) {
             return response()->json([
                 'status' => 403,
@@ -175,6 +177,10 @@ class DocumentController extends Controller
         $image->dir = $dir;
         $image->type = $imgType;
         $image->save();
+
+        $time_end = microtime(true);
+        $execution_time = ($time_end - $time_start);
+        return '<b>Total Execution Time:</b> '.($execution_time*1000).'Milliseconds';
 
         return 'https://' . $imageDomain . "/" . $name . $fileExt;
     }
