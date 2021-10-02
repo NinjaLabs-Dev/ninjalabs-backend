@@ -24,7 +24,6 @@ use WebPConvert\WebPConvert;
 class DocumentController extends Controller
 {
     public function index(Request $request, $slug) {
-        $time_start = microtime(true);
         $hostname = $request->getHost();
         $hostname = explode('.', $hostname);
         if(count($hostname) > 2) {
@@ -67,10 +66,6 @@ class DocumentController extends Controller
             } elseif ($custom) {
                 $image = new ImageResource(Image::with('user')->where('id', $custom->image->id)->where('owner_id', $user->id)->first());
             }
-
-            $time_end = microtime(true);
-            $execution_time = ($time_end - $time_start);
-            return '<b>Total Execution Time:</b> '.($execution_time*1000).'Milliseconds';
 
             return response(Storage::get($image->dir))->withHeaders([
                 'Content-Type' => $image->type,
