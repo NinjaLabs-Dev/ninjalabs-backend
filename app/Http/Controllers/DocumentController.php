@@ -151,7 +151,7 @@ class DocumentController extends Controller
         // 1688
         $time_start = microtime(true);
 
-        //$folders = Storage::directories();
+        $folders = Storage::directories();
 
 
         $userDomain = Domain::where('user_id', $client->user_id)->where('default', true)->first();
@@ -161,9 +161,9 @@ class DocumentController extends Controller
 
         $fileDir = 'user_images/' . $fileDir;
 
-//        if(!in_array($fileDir, $folders)) {
-//            Storage::makeDirectory($fileDir);
-        //}
+        if(!in_array($fileDir, $folders)) {
+            Storage::makeDirectory($fileDir);
+        }
 
         $dir = $fileDir . '/' . $name . '.' . $mimes->getExtension($imgType);
 
