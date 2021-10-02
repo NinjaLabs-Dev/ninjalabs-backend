@@ -70,7 +70,7 @@ class DocumentController extends Controller
 
             $time_end = microtime(true);
             $execution_time = ($time_end - $time_start);
-            echo '<b>Total Execution Time:</b> '.($execution_time*1000).'Milliseconds';
+            return '<b>Total Execution Time:</b> '.($execution_time*1000).'Milliseconds';
 
             return response(Storage::get($image->dir))->withHeaders([
                 'Content-Type' => $image->type,
