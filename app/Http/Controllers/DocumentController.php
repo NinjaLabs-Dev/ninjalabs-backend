@@ -149,12 +149,11 @@ class DocumentController extends Controller
         }
 
         // 1688
+        $time_start = microtime(true);
 
-        // 949
-        $folders = Storage::directories();
+        //$folders = Storage::directories();
 
 
-        // N/A
         $userDomain = Domain::where('user_id', $client->user_id)->where('default', true)->first();
         $imageDomain = $userDomain->sub . '.' . $userDomain->domain;
         $fileDir = explode('.', $userDomain->domain)[0];
@@ -162,12 +161,9 @@ class DocumentController extends Controller
 
         $fileDir = 'user_images/' . $fileDir;
 
-        // 963
-        $time_start = microtime(true);
-        if(!in_array($fileDir, $folders)) {
-            Storage::makeDirectory($fileDir);
-        }
-        $time_end = microtime(true);
+//        if(!in_array($fileDir, $folders)) {
+//            Storage::makeDirectory($fileDir);
+        //}
 
         $dir = $fileDir . '/' . $name . '.' . $mimes->getExtension($imgType);
 
@@ -184,6 +180,7 @@ class DocumentController extends Controller
         $image->type = $imgType;
         $image->save();
 
+        $time_end = microtime(true);
         $execution_time = ($time_end - $time_start);
         return '<b>Total Execution Time:</b> '.($execution_time*1000).'Milliseconds';
         return 'https://' . $imageDomain . "/" . $name . $fileExt;
