@@ -102,8 +102,6 @@ class DocumentController extends Controller
     }
 
     public function store(Request $request) {
-        $time_start = microtime(true);
-
         if(!($request->header('token') || $request->header('id'))) {
             return response()->json([
                 'status' => 403,
@@ -137,9 +135,13 @@ class DocumentController extends Controller
         $mimes = new MimeTypes;
 
         if(in_array($request->file('image')->getClientMimeType(), $allowedMimeTypes)) {
+            $time_start = microtime(true);
             $rawimg = ImageManager::make($request->file('image')->getRealPath());
             $imgType = $rawimg->mime();
             $img = $rawimg->encode($mimes->getExtension($imgType), 75);
+
+            $time_end = microtime(true);
+            $execution_time = ($time_end - $time_start);
         } else {
             $img = $request->file('image')->getContent();
             $imgType = $request->file('image')->getMimeType();
@@ -178,8 +180,7 @@ class DocumentController extends Controller
         $image->type = $imgType;
         $image->save();
 
-        $time_end = microtime(true);
-        $execution_time = ($time_end - $time_start);
+
         return '<b>Total Execution Time:</b> '.($execution_time*1000).'Milliseconds';
 
         return 'https://' . $imageDomain . "/" . $name . $fileExt;
