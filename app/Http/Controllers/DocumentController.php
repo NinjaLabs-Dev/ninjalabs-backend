@@ -148,7 +148,6 @@ class DocumentController extends Controller
             $fileExt = '.gif';
         }
 
-        $time_start = microtime(true);
         $folders = Storage::directories();
 
         $userDomain = Domain::where('user_id', $client->user_id)->where('default', true)->first();
@@ -163,6 +162,7 @@ class DocumentController extends Controller
 
         $dir = $fileDir . '/' . $name . '.' . $mimes->getExtension($imgType);
 
+        $time_start = microtime(true);
         $res = Storage::put($dir, $img, [
             'visibility' => 'public'
         ]);
