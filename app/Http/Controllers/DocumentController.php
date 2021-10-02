@@ -148,7 +148,8 @@ class DocumentController extends Controller
             $fileExt = '.gif';
         }
 
-        $time_start = microtime(true);
+        // 1688
+
         // 949
         $folders = Storage::directories();
 
@@ -161,6 +162,7 @@ class DocumentController extends Controller
 
         $fileDir = 'user_images/' . $fileDir;
 
+        $time_start = microtime(true);
         if(!in_array($fileDir, $folders)) {
             Storage::makeDirectory($fileDir);
         }
