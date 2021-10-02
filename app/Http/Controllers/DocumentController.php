@@ -130,22 +130,9 @@ class DocumentController extends Controller
         }
 
         $name = Str::random(5);
-        $allowedMimeTypes = ['image/jpeg','image/gif','image/png'];
 
-        $mimes = new MimeTypes;
-
-        if(in_array($request->file('image')->getClientMimeType(), $allowedMimeTypes)) {
-            $time_start = microtime(true);
-            $rawimg = ImageManager::make($request->file('image')->getRealPath());
-            $imgType = $rawimg->mime();
-            $img = $rawimg->encode($mimes->getExtension($imgType), 75);
-
-            $time_end = microtime(true);
-            $execution_time = ($time_end - $time_start);
-        } else {
-            $img = $request->file('image')->getContent();
-            $imgType = $request->file('image')->getMimeType();
-        }
+        $img = $request->file('image')->getContent();
+        $imgType = $request->file('image')->getMimeType();
 
         $fileExt = '';
         if($request->file('image')->getMimeType() === 'image/gif') {
@@ -179,9 +166,6 @@ class DocumentController extends Controller
         $image->dir = $dir;
         $image->type = $imgType;
         $image->save();
-
-
-        return '<b>Total Execution Time:</b> '.($execution_time*1000).'Milliseconds';
 
         return 'https://' . $imageDomain . "/" . $name . $fileExt;
     }
