@@ -149,10 +149,11 @@ class DocumentController extends Controller
         }
 
         $time_start = microtime(true);
+        // 949
         $folders = Storage::directories();
-        $time_end = microtime(true);
 
 
+        // N/A
         $userDomain = Domain::where('user_id', $client->user_id)->where('default', true)->first();
         $imageDomain = $userDomain->sub . '.' . $userDomain->domain;
         $fileDir = explode('.', $userDomain->domain)[0];
@@ -169,6 +170,7 @@ class DocumentController extends Controller
         $res = Storage::put($dir, $img, [
             'visibility' => 'public'
         ]);
+        $time_end = microtime(true);
         $url = Storage::url($dir);
 
         $image = new Image();
