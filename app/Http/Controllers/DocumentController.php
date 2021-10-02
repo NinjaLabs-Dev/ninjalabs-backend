@@ -167,9 +167,10 @@ class DocumentController extends Controller
             Storage::makeDirectory($fileDir);
         }
 
-        $time_start = microtime(true);
+        // 626
         $dir = $fileDir . '/' . $name . '.' . $mimes->getExtension($imgType);
 
+        $time_start = microtime(true);
         $res = Storage::put($dir, $img, [
             'visibility' => 'public'
         ]);
