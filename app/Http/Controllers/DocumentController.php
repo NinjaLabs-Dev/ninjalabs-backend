@@ -170,12 +170,13 @@ class DocumentController extends Controller
         // 626
         $dir = $fileDir . '/' . $name . '.' . $mimes->getExtension($imgType);
 
-        $time_start = microtime(true);
+        // 468
         $res = Storage::put($dir, $img, [
             'visibility' => 'public'
         ]);
-        $time_end = microtime(true);
+        $time_start = microtime(true);
         $url = Storage::url($dir);
+        $time_end = microtime(true);
 
         $image = new Image();
         $image->slug = $name;
