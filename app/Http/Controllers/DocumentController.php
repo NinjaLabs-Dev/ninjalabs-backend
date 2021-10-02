@@ -148,15 +148,15 @@ class DocumentController extends Controller
             $fileExt = '.gif';
         }
 
-        $folders = Storage::directories();
-
         $time_start = microtime(true);
+        $folders = Storage::directories();
+        $time_end = microtime(true);
+
 
         $userDomain = Domain::where('user_id', $client->user_id)->where('default', true)->first();
         $imageDomain = $userDomain->sub . '.' . $userDomain->domain;
         $fileDir = explode('.', $userDomain->domain)[0];
 
-        $time_end = microtime(true);
 
         $fileDir = 'user_images/' . $fileDir;
 
