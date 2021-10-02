@@ -162,11 +162,12 @@ class DocumentController extends Controller
 
         $fileDir = 'user_images/' . $fileDir;
 
-        $time_start = microtime(true);
+        // 963
         if(!in_array($fileDir, $folders)) {
             Storage::makeDirectory($fileDir);
         }
 
+        $time_start = microtime(true);
         $dir = $fileDir . '/' . $name . '.' . $mimes->getExtension($imgType);
 
         $res = Storage::put($dir, $img, [
