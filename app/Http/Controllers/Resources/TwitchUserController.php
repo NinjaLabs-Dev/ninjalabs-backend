@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\resources;
+namespace App\Http\Controllers\Resources;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TwitchUserResource;
