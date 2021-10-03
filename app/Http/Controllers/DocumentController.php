@@ -134,6 +134,7 @@ class DocumentController extends Controller
 
         $mimes = new MimeTypes;
 
+        $time_start = microtime(true);
         if(in_array($request->file('image')->getClientMimeType(), $allowedMimeTypes)) {
             $imgType = $request->file('image')->getMimeType();
             $img = $request->file('image')->getContent();
@@ -141,6 +142,7 @@ class DocumentController extends Controller
             $img = $request->file('image')->getContent();
             $imgType = $request->file('image')->getMimeType();
         }
+        $time_end = microtime(true);
 
         $fileExt = '';
         if($request->file('image')->getMimeType() === 'image/gif') {
@@ -148,10 +150,7 @@ class DocumentController extends Controller
             $fileExt = '.gif';
         }
 
-        // 1688
-        $time_start = microtime(true);
-
-        $folders = Storage::directories();
+        //$folders = Storage::directories();
 
 
         $userDomain = Domain::where('user_id', $client->user_id)->where('default', true)->first();
@@ -161,9 +160,10 @@ class DocumentController extends Controller
 
         $fileDir = 'user_images/' . $fileDir;
 
-        if(!isset($folders[$fileDir])) {
-            Storage::makeDirectory($fileDir);
-        }
+        // Removed because the performance is po po
+        //if(!isset($folders[$fileDir])) {
+        //    Storage::makeDirectory($fileDir);
+        //}
 
         $dir = $fileDir . '/' . $name . '.' . $mimes->getExtension($imgType);
 
@@ -180,7 +180,6 @@ class DocumentController extends Controller
         $image->type = $imgType;
         $image->save();
 
-        $time_end = microtime(true);
         $execution_time = ($time_end - $time_start);
         return '<b>Total Execution Time:</b> '.($execution_time*1000).'Milliseconds';
         return 'https://' . $imageDomain . "/" . $name . $fileExt;
