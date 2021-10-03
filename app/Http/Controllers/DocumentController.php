@@ -136,8 +136,7 @@ class DocumentController extends Controller
         $imgType = $request->file('image')->getMimeType();
 
         $fileExt = '';
-        if($request->file('image')->getMimeType() === 'image/gif') {
-            $img = $request->file('image')->getContent();
+        if($imgType === 'image/gif') {
             $fileExt = '.gif';
         }
 
