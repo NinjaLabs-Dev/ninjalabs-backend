@@ -155,8 +155,7 @@ class DocumentController extends Controller
         //    Storage::makeDirectory($fileDir);
         //}
 
-        $mimes = new MimeTypes;
-        $dir = $fileDir . '/' . $name . '.' . $mimes->getExtension($imgType);
+        $dir = $fileDir . '/' . $name . '.' . $img->extension();
 
         $res = Storage::put($dir, $img, [
             'visibility' => 'public'
