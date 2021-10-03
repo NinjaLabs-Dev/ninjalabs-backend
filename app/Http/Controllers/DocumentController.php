@@ -102,6 +102,7 @@ class DocumentController extends Controller
     }
 
     public function store(Request $request) {
+        $time_start = microtime(true);
         if(!($request->header('token') || $request->header('id'))) {
             return response()->json([
                 'status' => 403,
@@ -130,17 +131,9 @@ class DocumentController extends Controller
         }
 
         $name = Str::random(5);
-        $allowedMimeTypes = ['image/jpeg','image/gif','image/png'];
 
-        $mimes = new MimeTypes;
-
-        if(in_array($request->file('image')->getClientMimeType(), $allowedMimeTypes)) {
-            $imgType = $request->file('image')->getMimeType();
-            $img = $request->file('image')->getContent();
-        } else {
-            $img = $request->file('image')->getContent();
-            $imgType = $request->file('image')->getMimeType();
-        }
+        $img = $request->file('image')->getContent();
+        $imgType = $request->file('image')->getMimeType();
 
         $fileExt = '';
         if($request->file('image')->getMimeType() === 'image/gif') {
@@ -163,6 +156,7 @@ class DocumentController extends Controller
         //    Storage::makeDirectory($fileDir);
         //}
 
+        $mimes = new MimeTypes;
         $dir = $fileDir . '/' . $name . '.' . $mimes->getExtension($imgType);
 
         $res = Storage::put($dir, $img, [
@@ -170,7 +164,6 @@ class DocumentController extends Controller
         ]);
         $url = Storage::url($dir);
 
-        $time_start = microtime(true);
         $image = new Image();
         $image->slug = $name;
         $image->owner_id = $client->user_id;
