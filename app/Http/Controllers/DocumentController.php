@@ -134,7 +134,6 @@ class DocumentController extends Controller
 
         $mimes = new MimeTypes;
 
-        $time_start = microtime(true);
         if(in_array($request->file('image')->getClientMimeType(), $allowedMimeTypes)) {
             $imgType = $request->file('image')->getMimeType();
             $img = $request->file('image')->getContent();
@@ -142,7 +141,6 @@ class DocumentController extends Controller
             $img = $request->file('image')->getContent();
             $imgType = $request->file('image')->getMimeType();
         }
-        $time_end = microtime(true);
 
         $fileExt = '';
         if($request->file('image')->getMimeType() === 'image/gif') {
@@ -172,6 +170,7 @@ class DocumentController extends Controller
         ]);
         $url = Storage::url($dir);
 
+        $time_start = microtime(true);
         $image = new Image();
         $image->slug = $name;
         $image->owner_id = $client->user_id;
@@ -179,6 +178,7 @@ class DocumentController extends Controller
         $image->dir = $dir;
         $image->type = $imgType;
         $image->save();
+        $time_end = microtime(true);
 
         $execution_time = ($time_end - $time_start);
         return '<b>Total Execution Time:</b> '.($execution_time*1000).'Milliseconds';
