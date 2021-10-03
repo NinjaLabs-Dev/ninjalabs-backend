@@ -20,14 +20,14 @@ class ServerStatsController extends Controller
         $servers = Server::with(['repos'])->get();
 
         foreach ($servers as $server) {
-            $stat = ServerStat::where('server_id', $server->id)->orderBy('created_at', 'desc')->get();
+            $stat = ServerStat::where('server_id', $server->id)->orderBy('created_at', 'desc')->first();
 
             if ($stat->isEmpty()) {
                 $stat["ssh_connections"] = 0;
                 $stat["uptime"] = 0;
             }
 
-            $server["stat"] = $stat->first();
+            $server["stat"] = $stat;
         }
 
         return view('pages.server-stats.index')->with('servers', $servers);
