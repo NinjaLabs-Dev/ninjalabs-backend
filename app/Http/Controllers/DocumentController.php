@@ -161,7 +161,7 @@ class DocumentController extends Controller
 
         $fileDir = 'user_images/' . $fileDir;
 
-        if(!in_array($fileDir, $folders)) {
+        if(!isset($folders[$fileDir])) {
             Storage::makeDirectory($fileDir);
         }
 
