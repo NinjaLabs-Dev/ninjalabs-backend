@@ -57,7 +57,12 @@ return [
             'secret' => env('SCALEWAY_SECRET'),
             'region' => env('SCALEWAY_REGION'),
             'bucket' => env('SCALEWAY_BUCKET'),
-            'endpoint' => env('SCALEWAY_ENDPOINT')
+            'endpoint' => env('SCALEWAY_ENDPOINT'),
+            'cache' => [
+                'store' => 'memcached',
+                'expire' => 600,
+                'prefix' => 'cache-prefix',
+            ],
         ]
 
     ],

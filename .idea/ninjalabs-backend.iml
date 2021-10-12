@@ -130,6 +130,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/fomvasss/laravel-meta-tags" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/soarecostin/file-vault" />
       <excludeFolder url="file://$MODULE_DIR$/storage" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem-cached-adapter" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
