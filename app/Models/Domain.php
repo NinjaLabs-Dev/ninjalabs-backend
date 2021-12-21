@@ -16,14 +16,20 @@ class Domain extends Model
     }
 
     public static function getDomainList() {
-        $domains = self::all();
+        $domains = collect();
 
-        $domainList = [];
-        foreach ($domains as $domain) {
-            $domain = $domain->sub . '.' . $domain->domain;
-            $domainList[] = $domain;
-        }
+        self::all()->each(function($domain) use ($domains) {
+            if($domain->sub !== 'i') {
+                $domains->push(['i.' . $domain->domain]);
+            }
 
-        return $domainList;
+            if($domain->sub !== 'd') {
+                $domains->push(['d.' . $domain->domain]);
+            }
+
+            $domain->push([$domain->sub . '.' . $domain->domain]);
+        });
+
+        return $domains;
     }
 }
