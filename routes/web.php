@@ -9,7 +9,7 @@ use App\Http\Controllers\Pages\LoginController,
     \App\Http\Controllers\Resources\CustomController as CustomControllerResource,
     \App\Http\Controllers\Pages\DBBackupController,
     \App\Http\Controllers\Resources\TwitchUserController as TwitchUserControllerResources,
-    \App\Http\Controllers\pages\TwitchUserController,
+    \App\Http\Controllers\Pages\TwitchUserController,
     \App\Http\Controllers\Pages\UserSettings,
     \App\Http\Controllers\APITokenController,
     \App\Http\Controllers\UserPasswordController,
@@ -17,7 +17,6 @@ use App\Http\Controllers\Pages\LoginController,
     \App\Http\Controllers\Pages\ServerStatsController,
     \App\Http\Controllers\Resources\ServerStatsController as ServerStatsResource,
     \App\Http\Controllers\Resources\GithubServerStatsController as GithubServerStatsResource
-
     ;
 
 /*
@@ -50,13 +49,11 @@ Route::prefix('image')->group(function() {
     Route::get('/{slug}', [DocumentController::class, 'index']);
 });
 
-$domains = Domain::getDomainList();
-
-foreach ($domains as $domain) {
+Domain::getDomainList()->each(function ($domain) {
     Route::domain($domain)->group(function() {
         Route::get('/{slug}', [DocumentController::class, 'index']);
     });
-}
+});
 
 Route::prefix('api')->group(function() {
     Route::resource('/custom-images', CustomControllerResource::class, [
@@ -83,15 +80,6 @@ if(config('app.env') !== 'production') {
         Route::get('/{slug}', [DocumentController::class, 'index'])->name('image');
     });
 }
-
-//Route::domain('cdn.ninjalabs.dev')->group(function () {
-//    Route::get('/{slug}', [DocumentController::class, 'index'])->name('image');
-//});
-//
-//Route::domain('i.ninjalabs.dev')->group(function () {
-//    Route::get('/{slug}', [DocumentController::class, 'redirectToNew']);
-//});
-//
 
 //Route::get('/test', [\App\Http\Controllers\TestingController::class, 'index']);
 //Route::get('/stream', [TFMStreamController::class, 'index'])->name('stream.live');

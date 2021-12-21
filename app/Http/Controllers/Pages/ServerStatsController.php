@@ -20,19 +20,29 @@ class ServerStatsController extends Controller
     {
         $servers = Server::with(['repos'])->get();
 
-        foreach ($servers as $server) {
-            Cache::remember('server-stats-overview-' . $server->id, 900, function() use($server) {
-                $stat = ServerStat::where('server_id', $server->id)->orderBy('created_at', 'desc')->get();
+        return view('pages.server-stats.index')->with('servers', $servers);
+    }
 
-                if ($stat->isEmpty()) {
-                    $stat["ssh_connections"] = 0;
-                    $stat["uptime"] = 0;
-                }
+    public function show(Server $server) {
+        return Cache::remember('server-stats-overview-' . $server->id, 900, function() use($server) {
+            return self::getStats($server);
+        });
+    }
 
-                $server["stat"] = $stat->first();
-            });
+    private function getStats($server, $firstOnly = false) {
+        $stat = ServerStat::where('server_id', $server->id)->orderBy('created_at', 'desc');
+
+        if($firstOnly) {
+            $stat = $stat->first();
+        } else {
+            $stat = $stat->get();
         }
 
-        return view('pages.server-stats.index')->with('servers', $servers);
+        if ($stat->isEmpty()) {
+            $stat["ssh_connections"] = 0;
+            $stat["uptime"] = 0;
+        }
+
+        return $stat->first();
     }
 }
