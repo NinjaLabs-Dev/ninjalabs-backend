@@ -8,7 +8,7 @@
         <div class="col-lg-8 shadow storage-inf links-container rounded bg-gray-100 border px-4 py-4 my-4 flex align-items-center justify-content-between">
             {{ $file_count }} images
             <div class="button-controls">
-                <dashboard-button-controls></dashboard-button-controls>
+                <dashboard-button-controls csrf="{{ json_encode(csrf_token()) }}"></dashboard-button-controls>
             </div>
         </div>
         @if(old($url))
@@ -28,8 +28,9 @@
                             </div>
                             <div class="details flex flex-col justify-content-center ml-4">
                                 <span>{{ $image->slug }}</span>
+                                <span class="small">{{ $image->views }} views</span>
                                 <div class="overflow-ellipsis overflow-hidden max-h-10">
-                                    {{ $image->url }}
+                                    <a href="{{ $image->getUrl() }}" target="_blank">{{ $image->getUrl() }}</a>
                                 </div>
                             </div>
                         </div>

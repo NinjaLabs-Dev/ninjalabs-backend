@@ -35,7 +35,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/customs', [CustomController::class, 'index'])->name('custom.urls');
 Route::get('/backups', [DBBackupController::class, 'index'])->name('backups');
 Route::get('/backups/{id}', [DBBackupController::class, 'download']);
-Route::get('/twitch-users', [TwitchUserController::class, 'index'])->name('twitch');
+//Route::get('/twitch-users', [TwitchUserController::class, 'index'])->name('twitch');
 Route::get('/user/settings', [UserSettings::class, 'index'])->name('user.settings');
 Route::get('/server-stats', [ServerStatsController::class, 'index'])->name('server-stats');
 
@@ -76,6 +76,8 @@ Route::prefix('api')->group(function() {
 //    Route::resource('/twitch-users', TwitchUserControllerResources::class, [
 //        'only' => ['index', 'update', 'destroy']
 //    ]);
+
+    //Route::post('/image-upload', [DocumentController::class, 'manual']);
 });
 
 if(config('app.env') !== 'production') {

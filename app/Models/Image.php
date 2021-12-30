@@ -15,6 +15,12 @@ class Image extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
+    public function getUrl() {
+        $domain = $this->user()->firstOrFail()->defaultDomain();
+
+        return 'https://' . $domain->sub . '.' . $domain->domain . '/' . $this->slug;
+    }
+
     //public function domain() {
     //    return $this->belongsTo('')
     //}

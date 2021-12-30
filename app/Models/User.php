@@ -47,6 +47,10 @@ class User extends Authenticatable
         return $this->hasMany(Domain::class);
     }
 
+    public function defaultDomain() {
+        return Domain::where('user_id', $this->id)->where('default', true)->firstOrFail();
+    }
+
     public function apiToken() {
         return $this->hasOne(ApiToken::class);
     }

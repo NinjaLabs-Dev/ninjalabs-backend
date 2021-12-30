@@ -67,6 +67,12 @@ class DocumentController extends Controller
                 $image = new ImageResource(Image::with('user')->where('id', $custom->image->id)->where('owner_id', $user->id)->first());
             }
 
+            if($custom) {
+                Image::findOrFail($custom->image->id)->increment('views');
+            } elseif($img) {
+                Image::findOrFail($img->id)->increment('views');
+            }
+
             return response(Storage::get($image->dir))->withHeaders([
                 'Content-Type' => $image->type,
             ]);
@@ -93,6 +99,11 @@ class DocumentController extends Controller
         return response(Storage::get('images/404.png'))->withHeaders([
             'Content-Type' => 'image/png',
         ]);
+    }
+
+    public function manual(Request $request) {
+        return "hi";
+        return $request->all();
     }
 
     public function redirectToNew($slug) {
