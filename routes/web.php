@@ -16,8 +16,8 @@ use App\Http\Controllers\Pages\LoginController,
     \App\Models\Domain,
     \App\Http\Controllers\Pages\ServerStatsController,
     \App\Http\Controllers\Resources\ServerStatsController as ServerStatsResource,
-    \App\Http\Controllers\Resources\GithubServerStatsController as GithubServerStatsResource
-
+    \App\Http\Controllers\Resources\GithubServerStatsController as GithubServerStatsResource,
+    \App\Http\Controllers\FireworkController
     ;
 
 /*
@@ -30,6 +30,11 @@ use App\Http\Controllers\Pages\LoginController,
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::domain('tfm-fireworks.ninjalabs.dev')->group(function() {
+    Route::get('/', [FireworkController::class, 'index']);
+});
+
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/customs', [CustomController::class, 'index'])->name('custom.urls');
