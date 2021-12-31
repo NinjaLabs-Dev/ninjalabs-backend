@@ -31,8 +31,8 @@ use App\Http\Controllers\Pages\LoginController,
 |
 */
 
-Route::domain('cdn.ninjalabs.dev')->group(function() {
-    Route::get('/tfm-fireworks', [FireworkController::class, 'index']);
+Route::domain('tfm-fireworks.ninjalabs.dev')->group(function() {
+    Route::get('/', [FireworkController::class, 'index']);
 });
 
 
