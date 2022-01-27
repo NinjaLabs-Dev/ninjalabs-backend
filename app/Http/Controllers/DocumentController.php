@@ -147,7 +147,7 @@ class DocumentController extends Controller
 
         $fileExt = '';
         switch($imgType) {
-            case 'image/gif':*
+            case 'image/gif':
                 $fileExt = '.gif';
                 break;
             case 'video/mp4':
