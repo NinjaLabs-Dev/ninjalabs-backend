@@ -146,10 +146,14 @@ class DocumentController extends Controller
         $imgType = $request->file('image')->getMimeType();
 
         $fileExt = '';
-        if($imgType === 'image/gif') {
-            $fileExt = '.gif';
+        siwtch($imgType) {
+            case 'image/gif':
+                $fileExt = '.gif';
+                break;
+            case 'video/mp4':
+                $fileExt = '.mp4';
+                break;
         }
-
         //$folders = Storage::directories();
 
 
