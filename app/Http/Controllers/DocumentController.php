@@ -146,8 +146,8 @@ class DocumentController extends Controller
         $imgType = $request->file('image')->getMimeType();
 
         $fileExt = '';
-        siwtch($imgType) {
-            case 'image/gif':
+        switch($imgType) {
+            case 'image/gif':*
                 $fileExt = '.gif';
                 break;
             case 'video/mp4':
