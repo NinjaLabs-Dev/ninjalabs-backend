@@ -67,10 +67,12 @@ class DocumentController extends Controller
                 $image = new ImageResource(Image::with('user')->where('id', $custom->image->id)->where('owner_id', $user->id)->first());
             }
 
-            if($custom) {
-                Image::findOrFail($custom->image->id)->increment('views');
-            } elseif($img) {
-                Image::findOrFail($img->id)->increment('views');
+            if(!$request->header('Referer') || (parse_url($request->header('Referer'))["host"] !== 'panel.ninjalabs.dev')) {
+                if($custom) {
+                    Image::findOrFail($custom->image->id)->increment('views');
+                } elseif($img) {
+                    Image::findOrFail($img->id)->increment('views');
+                }
             }
 
             return response(Storage::get($image->dir))->withHeaders([
