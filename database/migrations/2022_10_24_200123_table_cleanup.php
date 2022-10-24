@@ -9,6 +9,7 @@ class TableCleanup extends Migration
     public function up()
     {
         Schema::dropIfExists('server_stats');
+        Schema::dropIfExists('server_repos');
         Schema::dropIfExists('servers');
         Schema::dropIfExists('twitch_users');
     }
