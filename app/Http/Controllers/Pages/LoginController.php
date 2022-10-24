@@ -22,18 +22,21 @@ class LoginController extends Controller
         return view('pages.login');
     }
 
-//    Login POST request
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             'username' => 'required',
             'password' => 'required'
         ]);
 
+        if($validator->errors()) {
+            return redirect()->back()->withErrors($validator->errors()->first());
+        }
+
         if(Auth::attempt(['name' => $request->username, 'password' => $request->password])) {
                 return Redirect::route('dashboard');
-        } else {
-            return Redirect::back()->withErrors(['message', 'No user was found with that name!']);
         }
+
+        return Redirect::back()->withErrors(['message', 'No user was found with that name!']);
     }
 
     public function logout(Request $request) {
@@ -42,7 +45,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-
-        return Redirect::to('/login');
+        return Redirect::route('login');
     }
 }

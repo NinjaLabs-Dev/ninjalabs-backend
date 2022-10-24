@@ -19,7 +19,11 @@ class CustomController extends Controller
     }
 
     public function index() {
-        return CustomsResource::collection(Customs::where('user_id', Auth::user()->id)->get());
+        return CustomsResource::collection(
+            Customs::query()
+                ->where('user_id', Auth::user()->id)
+                ->get()
+        );
     }
 
     public function store(Request $request) {
@@ -53,9 +57,9 @@ class CustomController extends Controller
         if($image->user_id === Auth::user()->id) {
             $image->delete();
             return Response::json(array('success' => true, 'data' => 'Deleted'));
-        } else {
-            return Response::json(array('error' => true), 403);
         }
+
+        return Response::json(array('error' => true), 403);
 
     }
 }

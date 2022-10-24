@@ -11,8 +11,11 @@ class UserSettings extends Controller
 {
     public function index()
     {
-        $api_tokens = ApiToken::where('user_id', Auth::user()->id)->get();
+        $api_tokens = ApiToken::query()
+            ->where('user_id', Auth::user()->id)
+            ->get();
 
-        return view('pages.user.settings.index')->with('api_tokens', $api_tokens);
+        return view('pages.user.settings.index')
+            ->with('api_tokens', $api_tokens);
     }
 }

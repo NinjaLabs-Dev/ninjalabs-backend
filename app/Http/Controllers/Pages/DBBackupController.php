@@ -16,7 +16,12 @@ class DBBackupController extends Controller
     }
 
     public function index() {
-        return view('pages.backups.index')->with('backups', DbBackup::orderBy('created_at', 'desc')->get());
+        $backups = DbBackup::query()
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('pages.backups.index')
+            ->with('backups', $backups);
     }
 
     public function download($id) {
