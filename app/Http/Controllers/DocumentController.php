@@ -87,7 +87,7 @@ class DocumentController extends Controller
                 );
             }
 
-            if(parse_url($request->header('Referer'))["host"] !== 'panel.ninjalabs.dev') {
+            if($request->header('Referer') && parse_url($request->header('Referer'))["host"] !== 'panel.ninjalabs.dev') {
                 if($custom) {
                     Image::findOrFail($custom->image->id)->increment('views');
                 } elseif($img) {
