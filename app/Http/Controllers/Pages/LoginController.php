@@ -14,7 +14,7 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['guest'])->except('login');
+        $this->middleware(['guest'])->except('logout');
         $this->middleware(['auth'])->only('logout');
     }
 
@@ -28,7 +28,7 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if($validator->errors()) {
+        if($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors()->first());
         }
 
