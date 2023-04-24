@@ -35,7 +35,7 @@
         "element-ui": "^2.15.1",
         "material-icons": "^0.5.4",
         "moment-timezone": "^0.5.33",
-        "postcss-loader": "^6.1.1",
+        "postcss-loader": "^7.1.0",
         "vue-apexcharts": "^1.6.2"
     }
 }
