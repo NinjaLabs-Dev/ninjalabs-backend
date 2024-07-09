@@ -14,12 +14,6 @@
                 <i class='bx bx-link-alt'></i>
                 Custom URLs
             </a>
-            @can('server stats')
-                <a href="{{ route('server-stats') }}" @if(\Route::current()->getName() === 'server-stats') class="nav-link active" aria-current="page" @else class="nav-link link-dark" @endif>
-                    <i class='bx bx-server'></i>
-                    Server Stats
-                </a>
-            @endcan
             @can('mysql backups')
                 <a href="{{ route('backups') }}" @if(\Route::current()->getName() === 'backups') class="nav-link active" aria-current="page" @else class="nav-link link-dark" @endif>
                     <i class='bx bx-data'></i>
