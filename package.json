@@ -30,7 +30,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "@opentok/client": "^2.19.3",
+        "@opentok/client": "^2.21.2",
         "el-table-infinite-scroll": "^1.0.10",
         "element-ui": "^2.15.1",
         "material-icons": "^0.5.4",
