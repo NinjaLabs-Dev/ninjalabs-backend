@@ -34,8 +34,8 @@
         "el-table-infinite-scroll": "^1.0.10",
         "element-ui": "^2.15.1",
         "material-icons": "^0.5.4",
-        "moment-timezone": "^0.5.33",
-        "postcss-loader": "^6.1.1",
+        "moment-timezone": "^0.5.41",
+        "postcss-loader": "^7.3.4",
         "vue-apexcharts": "^1.6.2"
     }
 }
